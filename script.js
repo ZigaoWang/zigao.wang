@@ -33,6 +33,22 @@ setInterval(() => {
     cpsDisplay.textContent = `${clicks} CPS`;
     if (clicks > 3) {
         cpsDisplay.classList.add('visible');
+
+        if (clicks >= 20) {
+            cpsDisplay.classList.add('stage-20');
+            cpsDisplay.classList.remove('stage-25', 'stage-15', 'stage-10', 'stage-7');
+        } else if (clicks >= 15) {
+            cpsDisplay.classList.add('stage-15');
+            cpsDisplay.classList.remove('stage-20', 'stage-25', 'stage-10', 'stage-7');
+        } else if (clicks >= 10) {
+            cpsDisplay.classList.add('stage-10');
+            cpsDisplay.classList.remove('stage-15', 'stage-20', 'stage-25', 'stage-7');
+        } else if(clicks >= 7) {
+            cpsDisplay.classList.add('stage-7');
+            cpsDisplay.classList.remove('stage-10', 'stage-15', 'stage-20', 'stage-25');
+        } else {
+            cpsDisplay.classList.remove('stage-7', 'stage-10', 'stage-15', 'stage-20', 'stage-25');
+        }
     } else {
         cpsDisplay.classList.remove('visible');
     }

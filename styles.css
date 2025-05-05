@@ -155,6 +155,46 @@ body {
     opacity: 1;
 }
 
+#cps-counter.stage-7 {
+    animation: stage7 0.2s ease-in-out infinite;
+}
+
+#cps-counter.stage-10 {
+    animation: stage10 0.2s ease-in-out infinite;
+}
+
+#cps-counter.stage-15 {
+    animation: stage15 0.2s ease-in-out infinite;
+}
+
+#cps-counter.stage-20 {
+    animation: stage20 0.6s linear infinite;
+}
+
+
+@keyframes stage7 {
+    0% { transform: scale(1) rotate(0deg); color: #00FFB2; }
+    50% { transform: scale(1.05) rotate(3deg); color: #fffb00; }
+    100% { transform: scale(1) rotate(0deg); color: #00FFB2; }
+}
+
+@keyframes stage10 {
+    0% { transform: scale(1) rotate(0deg); color: #fffb00; }
+    50% { transform: scale(1.15) rotate(10deg); color: #ed1515; }
+    100% { transform: scale(1) rotate(0deg); color: #fffb00; }
+}
+
+@keyframes stage15 {
+    0% { transform: scale(1) rotate(0deg); color: #ed1515; }
+    50% { transform: scale(1.25) rotate(15deg); color: #5c5ed3; }
+    100% { transform: scale(1) rotate(0deg); color: #ed1515; }
+}
+
+@keyframes stage20 {
+    0% { transform: scale(1) rotate(0deg); color: #ed1515; }
+    50% { transform: scale(1.5) rotate(180deg); color: #00FFB2; }
+    100% { transform: scale(1) rotate(360deg); color: #5c5ed3; }
+}
 .social-link {
     text-decoration: none;
     color: var(--text-secondary);
