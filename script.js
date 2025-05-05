@@ -23,3 +23,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+document.getElementById('zigao-img').addEventListener('click', clicker);
+
+function clicker(event) {
+    const img = event.target;
+    img.classList.remove('clicked');
+    void img.offsetWidth;
+    img.classList.add('clicked');
+
+    const plusOne = document.createElement('div');
+    plusOne.textContent = '+1';
+    plusOne.className = 'plus-one';
+
+    document.body.appendChild(plusOne);
+
+    const x = event.clientX;
+    const y = event.clientY;
+    plusOne.style.left = `${x}px`;
+    plusOne.style.top = `${y}px`;
+
+    setTimeout(() => plusOne.remove(), 1000);
+}
