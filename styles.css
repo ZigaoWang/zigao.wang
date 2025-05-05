@@ -30,6 +30,7 @@ body {
 
 /* Profile Section */
 .profile {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 3rem;
@@ -133,6 +134,25 @@ body {
         opacity: 0;
         transform: translateY(-80px);
     }
+}
+
+#cps-counter {
+    position: absolute;
+    bottom: -72px;
+    left: 0;
+    color: #00FFB2;
+    font-size: 32px;
+    text-align: center;
+    width: 180px;
+    z-index: 9999;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+#cps-counter.visible {
+    opacity: 1;
 }
 
 .social-link {

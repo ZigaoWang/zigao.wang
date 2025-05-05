@@ -4,11 +4,11 @@ document.querySelectorAll('.project-card').forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const shine = `radial-gradient(circle at ${x}px ${y}px, rgba(0,255,178,0.1) 0%, rgba(255,255,255,0) 80%)`;
         card.style.background = `${shine}, rgba(255, 255, 255, 0.03)`;
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.style.background = 'rgba(255, 255, 255, 0.03)';
     });
@@ -26,7 +26,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 document.getElementById('zigao-img').addEventListener('click', clicker);
 
+let clicks = 0;
+const cpsDisplay = document.getElementById('cps-counter');
+
+setInterval(() => {
+    cpsDisplay.textContent = `${clicks} CPS`;
+    if (clicks > 3) {
+        cpsDisplay.classList.add('visible');
+    } else {
+        cpsDisplay.classList.remove('visible');
+    }
+    clicks = 0;
+}, 1000);
+
 function clicker(event) {
+    clicks++;
+
     const img = event.target;
     img.classList.remove('clicked');
     void img.offsetWidth;
