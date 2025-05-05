@@ -149,28 +149,27 @@ body {
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
-}
 
-#cps-counter.visible {
-    opacity: 1;
-}
+    &.visible {
+        opacity: 1;
+    }
 
-#cps-counter.stage-7 {
-    animation: stage7 0.2s ease-in-out infinite;
-}
+    &.stage-7 {
+        animation: stage7 0.2s ease-in-out infinite;
+    }
 
-#cps-counter.stage-10 {
-    animation: stage10 0.2s ease-in-out infinite;
-}
+    &.stage-10 {
+        animation: stage10 0.2s ease-in-out infinite;
+    }
 
-#cps-counter.stage-15 {
-    animation: stage15 0.2s ease-in-out infinite;
-}
+    &.stage-15 {
+        animation: stage15 0.2s ease-in-out infinite;
+    }
 
-#cps-counter.stage-20 {
-    animation: stage20 0.6s linear infinite;
+    &.stage-20 {
+        animation: stage20 0.6s linear infinite;
+    }
 }
-
 
 @keyframes stage7 {
     0% { transform: scale(1) rotate(0deg); color: #00FFB2; }
@@ -355,7 +354,15 @@ footer a:hover {
     .tech-icons {
         gap: 1.5rem;
     }
-    
+
+    #cps-counter {
+        top: 185px;
+        bottom: unset;
+        left: 0;
+        font-size: 24px;
+        width: 100%;
+    }
+
     .tech-icons i {
         font-size: 2.5rem;
     }
