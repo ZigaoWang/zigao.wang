@@ -281,17 +281,64 @@ footer a:hover {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .container {
+        padding: 2rem 1rem;
+    }
+
     .profile {
         flex-direction: column;
         text-align: center;
+        gap: 2rem;
+        margin-bottom: 3rem;
     }
     
-    .organizations {
-        justify-content: center;
+    .profile-img {
+        width: 120px;
+        height: 120px;
     }
-    
+
     .gradient-text {
         font-size: 2.5rem;
+    }
+    
+    .subtext {
+        font-size: 1rem;
+    }
+
+    .organizations {
+        justify-content: center;
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .org-badge {
+        padding: 0.4rem 0.8rem;
+    }
+
+    .org-logo {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .social-links {
+        gap: 1rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+    }
+    
+    .social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .tech-stack {
+        margin: 3rem 0;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
     }
     
     .tech-icons {
@@ -301,14 +348,42 @@ footer a:hover {
     .tech-icons i {
         font-size: 2.5rem;
     }
-    
-    .social-links {
-        gap: 1rem;
+
+    .project-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        padding: 1.5rem;
+    }
+
+    .project-logo {
+        width: 56px;
+        height: 56px;
+    }
+
+    .project-links {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .store-link, .github-link {
+        flex: unset !important; /* Remove flex grow/shrink on mobile */
+        width: 100%;
+        justify-content: center;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
     }
     
-    .social-link {
-        width: 45px;
-        height: 45px;
-        font-size: 1.2rem;
+    .store-link:hover ~ .github-link,
+    .github-link:hover ~ .store-link {
+        flex: unset !important; /* Remove flex grow/shrink on mobile */
+    }
+
+    footer {
+        margin-top: 3rem;
+        padding: 1.5rem 0;
     }
 }
