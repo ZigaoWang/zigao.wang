@@ -159,6 +159,10 @@ h2 {
     margin-top: 2rem;
 }
 
+.projects {
+    text-align: center;
+}
+
 .project-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
