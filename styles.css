@@ -78,16 +78,31 @@ body {
     font-weight: 400;
     letter-spacing: .006em;
     color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto;
     opacity: 0.85;
+    margin: 0 0 1rem;
+}
+
+.location-text {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 1.8rem;
+    text-align: center;
+}
+
+.location-text i {
+    font-size: 20px;
+    color: #2997ff;
+    margin-right: 0.5rem;
 }
 
 .organizations {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 2.2rem;
+    margin-top: 2.5rem;
     flex-wrap: wrap;
     max-width: 700px;
     margin-left: auto;
@@ -380,6 +395,16 @@ footer a:hover {
     
     .subtext {
         font-size: 18px;
+        margin-bottom: 0.7rem;
+    }
+    
+    .location-text {
+        font-size: 16px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .location-text i {
+        font-size: 16px;
     }
 
     .organizations {
@@ -389,6 +414,10 @@ footer a:hover {
 
     h2 {
         font-size: 28px;
+    }
+
+    .project-grid {
+        gap: 1.25rem;
     }
 
     .project-content {
