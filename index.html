@@ -7,7 +7,7 @@
     <!-- Preload critical fonts -->
     <link rel="preload" href="fonts/inter/inter-600.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="zigao.jpg" as="image" fetchpriority="high" sizes="200px">
+    <link rel="preload" href="zigao.jpg" as="image">
     <style>
         /* Critical CSS for faster rendering */
         :root {
@@ -16,29 +16,18 @@
             --text-primary: #f5f5f7;
             --text-secondary: #a1a1a6;
         }
-        
-        html {
-            height: 100%;
-            font-size: 16px;
-        }
-        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
             margin: 0;
             padding: 0;
-            min-height: 100%;
-            width: 100%;
         }
-        
         .container {
             max-width: 980px;
             margin: 0 auto;
             padding: 5rem 2rem;
-            contain: layout paint style;
         }
-        
         .profile {
             display: flex;
             flex-direction: row;
@@ -50,41 +39,20 @@
             margin-left: auto;
             margin-right: auto;
             justify-content: center;
-            contain: layout style;
         }
-        
-        .profile-image-container {
-            flex-shrink: 0;
-            width: 200px;
-            height: 200px;
-            contain: layout size;
-        }
-        
         .profile-img {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            aspect-ratio: 1/1;
         }
-        
         .gradient-text {
             font-size: 56px;
             line-height: 1.1;
             font-weight: 600;
             margin-bottom: 0.5rem;
             padding-bottom: 3px;
-            width: 100%;
-            max-height: 120px;
-            min-height: 60px;
         }
-        
-        .subtext {
-            font-size: 22px;
-            line-height: 1.25;
-            min-height: 28px;
-        }
-        
         .language-toggle {
             position: absolute;
             top: 2rem;
@@ -95,10 +63,7 @@
             border-radius: 24px;
             padding: 3px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100px;
-            height: 32px;
         }
-        
         @media (max-width: 768px) {
             .profile {
                 flex-direction: column;
@@ -106,15 +71,12 @@
                 text-align: center;
                 padding: 0;
             }
-            
             .profile-img {
                 width: 160px;
                 height: 160px;
             }
-            
             .gradient-text {
                 font-size: 40px;
-                min-height: 44px;
             }
         }
     </style>
