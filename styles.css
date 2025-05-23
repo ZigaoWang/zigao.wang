@@ -119,7 +119,7 @@ body {
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
-    margin-top: 0.75rem;
+    margin-top: -0.25rem;
     flex-wrap: wrap;
     margin-bottom: 0;
 }
@@ -140,9 +140,11 @@ body {
 }
 
 .org-badge:hover {
-    background: rgba(50, 50, 55, 0.75);
+    background: rgba(60, 60, 70, 0.75);
     transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 7px 16px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
 }
 
 .org-logo {
@@ -154,7 +156,7 @@ body {
 }
 
 .org-badge:hover .org-logo {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(-5deg);
 }
 
 /* Social Links Section */
