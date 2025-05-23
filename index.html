@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zigao Wang</title>
+    <title>Zigao Wang | 王子高</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/lib/devicon.min.css">
     <link rel="stylesheet" href="css/lib/all.min.css">
 </head>
 <body>
+    <div class="language-toggle">
+        <button class="language-btn active" data-lang="en">EN</button>
+        <button class="language-btn" data-lang="zh">中文</button>
+    </div>
+
     <div class="container">
         <header>
             <div class="profile">
@@ -16,19 +21,29 @@
                     <img src="zigao.jpg" alt="Zigao Wang" class="profile-img">
                 </div>
                 <div class="profile-info">
-                    <h1 class="gradient-text">Zigao Wang</h1>
-                    <p class="subtext">Student Developer & Tech Enthusiast</p>
+                    <h1 class="gradient-text">
+                        <span class="en-content">Zigao Wang</span>
+                        <span class="zh-content">王子高</span>
+                    </h1>
+                    <p class="subtext">
+                        <span class="en-content">Student Developer & Tech Enthusiast</span>
+                        <span class="zh-content">学生开发者 & 科技爱好者</span>
+                    </p>
                     <span class="location-text">
-                        <i class="fas fa-map-marker-alt"></i> Shanghai, China
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <span class="en-content">Shanghai, China</span>
+                        <span class="zh-content">中国，上海</span>
                     </span>
                     <div class="organizations">
                         <a href="https://github.com/pacerclub" target="_blank" class="org-badge">
                             <img src="logo/pacerclub.jpg" alt="Pacer Club" class="org-logo">
-                            <span>Founder of Pacer Club</span>
+                            <span class="en-content">Founder of Pacer Club</span>
+                            <span class="zh-content">Pacer Club 创始人</span>
                         </a>
                         <a href="https://hackclub.com" target="_blank" class="org-badge">
                             <img src="logo/hackclub.jpg" alt="Hack Club" class="org-logo">
-                            <span>Hack Club Member</span>
+                            <span class="en-content">Hack Club Member</span>
+                            <span class="zh-content">Hack Club 成员</span>
                         </a>
                     </div>
                 </div>
@@ -54,7 +69,10 @@
         </section>
 
         <section class="tech-stack">
-            <h2>Technologies I Work With</h2>
+            <h2>
+                <span class="en-content">Technologies I Work With</span>
+                <span class="zh-content">我使用的技术</span>
+            </h2>
             <div class="tech-icons">
                 <i class="devicon-swift-plain colored" title="Swift"></i>
                 <i class="devicon-python-plain colored" title="Python"></i>
@@ -68,22 +86,30 @@
         </section>
 
         <section class="projects">
-            <h2>Featured Projects</h2>
+            <h2>
+                <span class="en-content">Featured Projects</span>
+                <span class="zh-content">精选项目</span>
+            </h2>
             <div class="project-grid">
                 <div class="project-card">
                     <div class="project-content">
                         <img src="logo/zapnotes.jpg" alt="ZapNotes" class="project-logo">
                         <div class="project-info">
                             <h3>Zap Notes</h3>
-                            <p>An AI-powered note-taking app for recording and analyzing thoughts, ideas, and tasks.</p>
+                            <p class="en-content">An AI-powered note-taking app for recording and analyzing thoughts, ideas, and tasks.</p>
+                            <p class="zh-content">一款由 AI 驱动的笔记应用，用于记录和分析想法、创意和任务。</p>
                         </div>
                         <div class="project-actions">
                             <div class="project-links">
                                 <a href="https://apps.apple.com/us/app/zap-notes/id6740298881" target="_blank" class="store-link">
-                                    <i class="fab fa-app-store-ios"></i> App Store
+                                    <i class="fab fa-app-store-ios"></i> 
+                                    <span class="en-content">App Store</span>
+                                    <span class="zh-content">App Store</span>
                                 </a>
                                 <a href="https://github.com/ZigaoWang/ZapNotesApp" target="_blank" class="github-link">
-                                    <i class="fab fa-github"></i> GitHub
+                                    <i class="fab fa-github"></i> 
+                                    <span class="en-content">GitHub</span>
+                                    <span class="zh-content">GitHub</span>
                                 </a>
                             </div>
                         </div>
@@ -95,15 +121,20 @@
                         <img src="logo/zapknowai.jpg" alt="ZapKnow AI" class="project-logo">
                         <div class="project-info">
                             <h3>Zap Know AI</h3>
-                            <p>An AI app for trusted research that helps you find accurate answers backed by real papers.</p>
+                            <p class="en-content">An AI app for trusted research that helps you find accurate answers backed by real papers.</p>
+                            <p class="zh-content">一款可信研究的 AI 应用，帮助您找到由真实论文支持的准确答案。</p>
                         </div>
                         <div class="project-actions">
                             <div class="project-links">
                                 <a href="https://apps.apple.com/us/app/zap-know-ai/id6745419831" target="_blank" class="store-link">
-                                    <i class="fab fa-app-store-ios"></i> App Store
+                                    <i class="fab fa-app-store-ios"></i> 
+                                    <span class="en-content">App Store</span>
+                                    <span class="zh-content">App Store</span>
                                 </a>
                                 <a href="https://github.com/ZigaoWang/ZapKnowAI-iOS" target="_blank" class="github-link">
-                                    <i class="fab fa-github"></i> GitHub
+                                    <i class="fab fa-github"></i> 
+                                    <span class="en-content">GitHub</span>
+                                    <span class="zh-content">GitHub</span>
                                 </a>
                             </div>
                         </div>
@@ -115,15 +146,20 @@
                         <img src="logo/goorno.jpg" alt="Go or No" class="project-logo">
                         <div class="project-info">
                             <h3>Go or No</h3>
-                            <p>An AR app for visually impaired users, helping you navigate your environment more safely and confidently.</p>
+                            <p class="en-content">An AR app for visually impaired users, helping you navigate your environment more safely and confidently.</p>
+                            <p class="zh-content">一款为视障用户开发的 AR 应用，帮助您更安全、更自信地导航您的环境。</p>
                         </div>
                         <div class="project-actions">
                             <div class="project-links">
                                 <a href="https://apps.apple.com/us/app/go-or-no/id6744859953" target="_blank" class="store-link">
-                                    <i class="fab fa-app-store-ios"></i> App Store
+                                    <i class="fab fa-app-store-ios"></i> 
+                                    <span class="en-content">App Store</span>
+                                    <span class="zh-content">App Store</span>
                                 </a>
                                 <a href="https://github.com/ZigaoWang/go-or-no" target="_blank" class="github-link">
-                                    <i class="fab fa-github"></i> GitHub
+                                    <i class="fab fa-github"></i> 
+                                    <span class="en-content">GitHub</span>
+                                    <span class="zh-content">GitHub</span>
                                 </a>
                             </div>
                         </div>
@@ -135,20 +171,27 @@
                         <img src="logo/daztab.jpg" alt="DazTab" class="project-logo">
                         <div class="project-info">
                             <h3>DazTab</h3>
-                            <p>A chrome extension that replaces your new tab page into a macOS-styled dashboard.</p>
+                            <p class="en-content">A chrome extension that replaces your new tab page into a macOS-styled dashboard.</p>
+                            <p class="zh-content">一个 Chrome 扩展，将您的新标签页变成 macOS 风格的仪表盘。</p>
                         </div>
                         <div class="project-actions">
                             <div class="preview-link">
                                 <a href="https://daztab.com" target="_blank">
-                                    <i class="fas fa-external-link-alt"></i> Preview at daztab.com
+                                    <i class="fas fa-external-link-alt"></i> 
+                                    <span class="en-content">Preview at daztab.com</span>
+                                    <span class="zh-content">在 daztab.com 预览</span>
                                 </a>
                             </div>
                             <div class="project-links">
                                 <a href="https://chromewebstore.google.com/detail/daztab/bagdffmnpgghcehadgmhcppaphpdfmbb" target="_blank" class="store-link">
-                                    <i class="fab fa-chrome"></i> Chrome Store
+                                    <i class="fab fa-chrome"></i> 
+                                    <span class="en-content">Chrome Store</span>
+                                    <span class="zh-content">Chrome 商店</span>
                                 </a>
                                 <a href="https://github.com/ZigaoWang/daztab" target="_blank" class="github-link">
-                                    <i class="fab fa-github"></i> GitHub
+                                    <i class="fab fa-github"></i> 
+                                    <span class="en-content">GitHub</span>
+                                    <span class="zh-content">GitHub</span>
                                 </a>
                             </div>
                         </div>
@@ -158,7 +201,10 @@
         </section>
 
         <footer>
-            <p>© 2025 Zigao Wang · <a href="https://github.com/ZigaoWang/zigao.wang" target="_blank">Open Source</a> · MIT License</p>
+            <p>
+                <span class="en-content">© 2025 Zigao Wang · <a href="https://github.com/ZigaoWang/zigao.wang" target="_blank">Open Source</a> · MIT License</span>
+                <span class="zh-content">© 2025 王子高 · <a href="https://github.com/ZigaoWang/zigao.wang" target="_blank">开源</a> · MIT 许可证</span>
+            </p>
         </footer>
     </div>
     <script src="script.js"></script>
