@@ -1,0 +1,130 @@
+/* Custom icons CSS file */
+
+/* Base icon style */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
+
+/* Font Awesome Brand Icons */
+.icon-github {
+  background-image: url('../icons/fontawesome/github.svg');
+}
+
+.icon-x-twitter {
+  background-image: url('../icons/fontawesome/x-twitter.svg');
+}
+
+.icon-chrome {
+  background-image: url('../icons/fontawesome/chrome.svg');
+}
+
+.icon-app-store-ios {
+  background-image: url('../icons/fontawesome/app-store-ios.svg');
+}
+
+/* Font Awesome Solid Icons */
+.icon-map-marker-alt {
+  background-image: url('../icons/fontawesome/map-marker-alt.svg');
+}
+
+.icon-blog {
+  background-image: url('../icons/fontawesome/blog.svg');
+}
+
+.icon-envelope {
+  background-image: url('../icons/fontawesome/envelope.svg');
+}
+
+.icon-keyboard {
+  background-image: url('../icons/fontawesome/keyboard.svg');
+}
+
+.icon-external-link-alt {
+  background-image: url('../icons/fontawesome/external-link-alt.svg');
+}
+
+/* Devicon Tech Icons */
+.icon-swift {
+  background-image: url('../icons/devicon/swift.svg');
+}
+
+.icon-python {
+  background-image: url('../icons/devicon/python.svg');
+}
+
+.icon-javascript {
+  background-image: url('../icons/devicon/javascript.svg');
+}
+
+.icon-nodejs {
+  background-image: url('../icons/devicon/nodejs.svg');
+}
+
+.icon-go {
+  background-image: url('../icons/devicon/go.svg');
+}
+
+.icon-html5 {
+  background-image: url('../icons/devicon/html5.svg');
+}
+
+.icon-css3 {
+  background-image: url('../icons/devicon/css3.svg');
+}
+
+.icon-cplusplus {
+  background-image: url('../icons/devicon/cplusplus.svg');
+}
+
+/* Icon Sizes */
+.icon-lg {
+  font-size: 2.8rem;
+}
+
+.icon-md {
+  font-size: 1.25rem;
+}
+
+/* Social Links Icons */
+.social-link .icon {
+  font-size: 1.25rem;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Location Icon */
+.location-text .icon {
+  color: var(--primary-color);
+}
+
+/* Fix for specific colored icons */
+[class*="icon-"] {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%);
+}
+
+.icon-primary {
+  filter: invert(31%) sepia(98%) saturate(2000%) hue-rotate(195deg) brightness(95%) contrast(101%);
+}
+
+/* Tech Icons Colors */
+.tech-icons .icon {
+  filter: none;
+}
+
+/* For making icons inside buttons look good */
+.store-link .icon, .github-link .icon {
+  margin-right: 0.3rem;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+/* Location Icon */
+.location-text .icon-primary {
+  filter: invert(31%) sepia(98%) saturate(2000%) hue-rotate(195deg) brightness(95%) contrast(101%);
+} 

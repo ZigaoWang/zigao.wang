@@ -109,9 +109,7 @@ body {
     text-align: left;
 }
 
-.location-text i {
-    font-size: 18px;
-    color: var(--primary-color);
+.location-text .icon {
     margin-right: 0.6rem;
 }
 
@@ -238,15 +236,19 @@ h2 {
     flex-wrap: wrap;
 }
 
-.tech-icons i {
+.tech-icons span {
     font-size: 2.8rem;
     color: var(--text-secondary);
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s ease;
 }
 
-.tech-icons i:hover {
+.tech-icons span:hover {
     transform: translateY(-3px);
     color: var(--primary-color);
+}
+
+.store-link .icon-chrome {
+    color: #fff;
 }
 
 /* Projects Section */
@@ -372,7 +374,7 @@ h2 {
     box-shadow: 0 4px 10px rgba(0, 113, 227, 0.4);
 }
 
-.store-link .fa-chrome {
+.store-link .icon-chrome {
     color: #fff;
 }
 
@@ -475,7 +477,7 @@ footer a:hover {
         justify-content: center;
     }
     
-    .location-text i {
+    .location-text .icon {
         font-size: 16px;
     }
 
