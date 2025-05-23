@@ -27,8 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set initial language to English
     document.documentElement.lang = 'en';
     
-    // Get language toggle buttons
+    // Get language toggle buttons and container
     const langButtons = document.querySelectorAll('.language-btn');
+    const langToggle = document.querySelector('.language-toggle');
     
     // Add click event listeners to language buttons
     langButtons.forEach(button => {
@@ -44,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Set the language attribute on the html element
             document.documentElement.lang = lang;
             
+            // Update toggle container attribute
+            langToggle.setAttribute('data-active', lang);
+            
             // Store the selected language in localStorage
             localStorage.setItem('preferredLanguage', lang);
         });
@@ -55,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set the stored language
         document.documentElement.lang = storedLang;
         
-        // Update the active button
+        // Update the active button and toggle container attribute
         langButtons.forEach(btn => {
             if (btn.getAttribute('data-lang') === storedLang) {
                 btn.classList.add('active');
@@ -63,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.remove('active');
             }
         });
+        langToggle.setAttribute('data-active', storedLang);
     }
     
     // Auto-detect browser language (as a fallback if no stored preference)
@@ -70,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const browserLang = navigator.language.substring(0, 2);
         if (browserLang === 'zh') {
             document.documentElement.lang = 'zh';
+            langToggle.setAttribute('data-active', 'zh');
             langButtons.forEach(btn => {
                 if (btn.getAttribute('data-lang') === 'zh') {
                     btn.classList.add('active');

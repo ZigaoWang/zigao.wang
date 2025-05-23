@@ -559,31 +559,68 @@ header {
     right: 2rem;
     display: flex;
     z-index: 100;
+    background: rgba(28, 28, 30, 0.7);
+    border-radius: 24px;
+    padding: 3px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .language-btn {
-    background: rgba(28, 28, 30, 0.7);
-    color: var(--text-primary);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
     border-radius: 20px;
     padding: 6px 14px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+    min-width: 40px;
+    text-align: center;
+    letter-spacing: 0.02em;
 }
 
 .language-btn:hover {
-    background: rgba(40, 40, 45, 0.8);
-    transform: translateY(-2px);
+    color: #fff;
 }
 
 .language-btn.active {
-    background: var(--primary-color);
     color: #fff;
-    border-color: var(--primary-color);
+}
+
+.language-toggle::before {
+    content: '';
+    position: absolute;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: var(--primary-color);
+    border-radius: 18px;
+    left: 3px;
+    top: 3px;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 0;
+}
+
+.language-toggle[data-active="zh"]::before {
+    transform: translateX(100%);
+}
+
+@media (max-width: 768px) {
+    .language-toggle {
+        top: 1.5rem;
+        right: 1.5rem;
+        padding: 2px;
+    }
+    
+    .language-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+        min-width: 36px;
+    }
 }
 
 /* Hide content based on language */
@@ -593,16 +630,4 @@ header {
 
 [lang="en"] .zh-content {
     display: none;
-}
-
-@media (max-width: 768px) {
-    .language-toggle {
-        top: 1rem;
-        right: 1rem;
-    }
-    
-    .language-btn {
-        padding: 5px 12px;
-        font-size: 13px;
-    }
 }
