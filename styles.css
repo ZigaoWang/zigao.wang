@@ -390,25 +390,6 @@ h2 {
     transform: translateY(-1px);
 }
 
-.preview-link {
-    margin-bottom: 0.8rem;
-    text-align: right;
-}
-
-.preview-link a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-size: 13.5px;
-    transition: color 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.preview-link a:hover {
-    color: var(--secondary-color);
-}
-
 /* Footer */
 footer {
     margin-top: 6rem;
@@ -514,11 +495,6 @@ footer a:hover {
         width: 100%;
         min-width: unset;
         margin-top: 0.8rem;
-    }
-    
-    .preview-link {
-        text-align: center;
-        margin-bottom: 0.8rem;
     }
     
     .project-card {
