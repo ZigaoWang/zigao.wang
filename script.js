@@ -1,18 +1,3 @@
-// Add hover effect to project cards
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseover', () => {
-        card.style.background = 'rgba(0, 113, 227, 0.08)';
-        card.style.transform = 'translateY(-4px)';
-        card.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.background = 'rgba(28, 28, 30, 0.7)';
-        card.style.transform = 'none';
-        card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-    });
-});
-
 // Add smooth scroll behavior
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
