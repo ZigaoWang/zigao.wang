@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zigao.wang/sitemap.xml
