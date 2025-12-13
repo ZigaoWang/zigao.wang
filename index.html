@@ -13,7 +13,7 @@
     <!-- Preload critical fonts -->
     <link rel="preload" href="fonts/inter/inter-600.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="zigao.jpg" as="image">
+    <link rel="preload" href="zigao.webp" as="image" fetchpriority="high">
     <style>
         /* Critical CSS for faster rendering */
         :root {
@@ -133,7 +133,10 @@
         <header>
             <div class="profile">
                 <div class="profile-image-container">
-                    <img src="zigao.jpg" alt="Zigao Wang" class="profile-img">
+                    <picture>
+                        <source srcset="zigao.webp" type="image/webp">
+                        <img src="zigao.jpg" alt="Zigao Wang" class="profile-img" width="200" height="200" decoding="async" fetchpriority="high">
+                    </picture>
                 </div>
                 <div class="profile-info">
                     <h1 class="gradient-text">
@@ -290,6 +293,6 @@
             </p>
         </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
