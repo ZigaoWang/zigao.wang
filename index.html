@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,12 +93,34 @@
                 font-size: 40px;
             }
         }
+        /* Hide non-active language immediately */
+        [lang="en"] .zh-content { display: none; }
+        [lang="zh"] .en-content { display: none; }
     </style>
-    <!-- Critical CSS -->
-    <link rel="stylesheet" href="css/fonts.css">
-    <!-- Non-critical CSS -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="css/custom-icons.css">
+    <!-- Inline critical fonts (only weights used) -->
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('fonts/inter/inter-400.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('fonts/inter/inter-600.woff2') format('woff2');
+        }
+    </style>
+    <!-- Non-critical CSS - loaded async -->
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/custom-icons.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="css/custom-icons.css">
+    </noscript>
     <meta name="description" content="Zigao Wang (王子高) — student developer and tech enthusiast in Shanghai, China. Projects: Zap Notes, Zap Know AI, Go or No. Connect via a@zigao.wang.">
     <meta property="og:title" content="Zigao Wang 王子高 | Developer & Tech Enthusiast in Shanghai">
     <meta property="og:description" content="Portfolio of Zigao Wang (王子高), student developer in Shanghai. Explore projects like Zap Notes, Zap Know AI, and Go or No.">
