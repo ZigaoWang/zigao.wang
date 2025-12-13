@@ -142,6 +142,11 @@ body {
     color: #fff;
 }
 
+.org-badge picture {
+    display: flex;
+    align-items: center;
+}
+
 .org-logo {
     width: 24px;
     height: 24px;
