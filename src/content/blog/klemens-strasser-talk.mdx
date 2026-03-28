@@ -1,6 +1,6 @@
 ---
-title: "Make Something That Makes You Smile"
-description: "What I learned from chatting with Klemens Strasser — the indie dev behind The Art of Fauna, a 2025 Apple Design Award winner."
+title: "The Art of Caring"
+description: "Notes from Klemens Strasser's talk at LET'S VISION 2026 in Shanghai, and the conversation afterward."
 pubDate: '2026-03-28'
 heroImage: '../../assets/klemens-on-stage.jpg'
 ---
@@ -8,41 +8,71 @@ heroImage: '../../assets/klemens-on-stage.jpg'
 import Figure from '../../components/Figure.astro';
 import stageImg from '../../assets/klemens-on-stage.jpg';
 import groupImg from '../../assets/klemens-group-photo.jpg';
+import careImg from '../../assets/klemens-if-you-care.jpg';
 
-Klemens Strasser is an indie developer from Graz, Austria. He makes apps like *The Art of Fauna*, *PocketShelf*, *Letter Rooms*, and *Study Snacks*. He won an Apple Design Award in 2025 for accessibility and was a finalist in 2022 and 2023.
+I'm at LET'S VISION 2026 in Shanghai today, an Apple ecosystem conference by SwiftGG. The talk that stuck with me most was by Klemens Strasser, an indie dev from Austria who makes apps like *The Art of Fauna*, *PocketShelf*, *Letter Rooms*, and *Study Snacks*. Apple Design Award winner in 2025 for accessibility, finalist in 2022 and 2023. His talk was called "The Art of Caring," and that title pretty much captures everything he's about.
 
-I caught his talk and chatted with him afterward. Here's what stuck with me.
+I talked to him afterward and came away rethinking a few things I thought I already understood.
 
 <Figure src={stageImg} alt="Klemens Strasser presenting on stage" caption="Klemens on stage talking about accessibility in indie apps." />
 
-## Accessibility is for everyone, not just the obvious cases
+## Accessibility is design, not a feature
 
-Most developers think of accessibility as VoiceOver support or dynamic type. Klemens goes further. In *The Art of Fauna*, he added phobia filters for snakes, insects, and other animals. Some users don't even know they have these phobias until they see the content. Putting that setting on the first screen means they never have to.
+Klemens opened with a line that reframed how I think about this: accessibility isn't about serving a small portion of users. It makes every user's experience better, and it will make every user's experience better.
 
-He also makes the case that accessibility settings should come before onboarding, not after. Some users literally can't finish onboarding without them.
+Before this talk, I thought about accessibility the way most developers do. VoiceOver, dynamic type, contrast ratios. Check the boxes, move on. Klemens treats it as something much deeper.
 
-## Show users you're a real person
+In *The Art of Fauna*, he added phobia settings for snakes, insects, and other animals. That's not a standard accessibility feature. But some people don't even know they have a phobia until the image shows up on screen. By putting that filter on the very first screen, before onboarding even starts, he's catching something most developers would never think about.
 
-Klemens puts a photo of himself in the "contact the developer" section. When users are frustrated about a subscription, he explains why the app costs money and why he doesn't run ads (it would defeat the purpose of the app). The idea is simple: meet users at their point of frustration and show you actually care.
+And that's the bigger point: most apps show accessibility options after onboarding, or bury them in settings. But some users can't even get through onboarding without them. Putting accessibility last means treating it as an afterthought. Putting it first means you actually designed for it.
 
-He also times the "Rate this app?" prompt right after the user finishes a hard puzzle. Catch people when they feel good.
+## Care shows up at friction points
+
+Klemens puts a photo of himself in the "contact developer" section of his apps. Small thing, but it tells users there's a real indie developer behind this, not a faceless company.
+
+He does the same with subscriptions. When users are frustrated about paying, he doesn't just throw up a paywall. He explains why the app costs money and why there are no ads. Because adding ads would go against the entire reason the app exists. The principle is simple: approach users at their moment of frustration and show that you care.
+
+He applies the same thinking in reverse for ratings. The "Rate this app?" prompt shows up right after the user completes a hard puzzle, when they feel accomplished. Not on launch. Not randomly. At the moment they feel best about the experience.
+
+Most developers treat friction points as things to hide or minimize. Klemens treats them as relationship moments. That's a different way of thinking about product design entirely.
+
+<Figure src={careImg} alt="Klemens Strasser showing a slide that says if you care a bit more, you might not only find success but also be happy doing so" caption='A line from his talk that sums up the whole philosophy: "If you care a bit more, you might not only find success but also be happy doing so."' />
 
 ## The two question filter
 
-Every idea goes through two questions: Is this fun? Can I make it accessible? If the second answer is no, he passes.
+Every idea Klemens has goes through two questions:
 
-## How he validates ideas
+1. Is this fun?
+2. Can I make it accessible?
 
-I asked him how he knows an idea is worth building. He said he prototypes it first, and if it makes him smile when he plays it, he shows it to friends. If they don't get it, he drops it. If they do, he keeps going. No overthinking it.
+The first answer is usually yes. The second is usually no. If he can't make it accessible, he passes entirely.
 
-## Not every app needs to solve a problem
+What I find interesting about this is that it puts accessibility into the ideation phase, not the development phase. Most developers think about accessibility after they've already built something. By then, it's hard to retrofit. Klemens filters ideas out before writing a single line of code.
 
-This one surprised me. *PocketShelf* started from a personal need (tracking what he reads), but *The Art of Fauna* started as pure fun. Users later told him it helped them relax, and that became part of what the app is. The purpose came after, not before.
+## You don't need a complex validation process
 
-I've been reading *The Cold Start Problem* by Andrew Chen, and the "come for the tool, stay for the network" concept made me curious whether he'd ever add social features. He said maybe for *Art of Fauna*, but it's not a priority. Which kind of proves the point: the tool has to be good on its own first.
+I asked him how he knows an idea is worth building into a full app. His answer was simple: build a prototype, play with it yourself, and if it makes you smile, show it to friends. If they don't get it, drop it. If they like it and give feedback, keep going.
 
----
+No surveys. No landing page experiments. Just real reactions from himself and people he trusts.
 
-As someone who keeps feeling stuck on what to build next, the biggest takeaway is just: make something that makes you smile, put it in front of people, and let the purpose reveal itself.
+This works because his apps are small and personal. When you're building a cozy puzzle game or a book tracker, the people around you are your target audience. The feedback loop is fast and honest. It probably wouldn't work for everything, but for indie apps, it's hard to argue with results.
+
+## Not every app needs a purpose statement
+
+This is the part that changed how I think about building things.
+
+I asked Klemens what he sees as the core value of his apps. *PocketShelf* started from a personal problem: he wanted to track his reading. That fits the typical narrative of "scratch your own itch." But *The Art of Fauna* didn't start that way at all. It started as pure fun. Users later told him it helped them calm down, and that became part of what the app is about.
+
+The purpose came after shipping, not before.
+
+I've been reading *The Cold Start Problem* by Andrew Chen, and there's this idea of "come for the tool, stay for the network," how Instagram started as a photo editing tool before becoming a social network. I asked Klemens if he'd ever add social features, since most of his apps are deliberately local and self-contained. He said maybe for *Art of Fauna* eventually, but it's not a priority.
+
+That actually reinforces the framework. The tool has to be genuinely good on its own first. And maybe some tools are better off just being tools.
+
+## What I'm taking away
+
+I keep getting stuck waiting for the perfect idea. Something that solves a clear problem, has a market, fits a strategy. Klemens basically showed me a different approach: care deeply about craft and about the people using what you make. Filter hard on accessibility. Build a prototype and see if it makes you smile.
+
+And let the purpose show up on its own.
 
 <Figure src={groupImg} alt="Group photo with Klemens Strasser after his talk" caption="With Klemens after the talk." width={400} class="photo-small" />

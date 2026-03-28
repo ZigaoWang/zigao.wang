@@ -3,7 +3,7 @@ const today = new Date();
 ---
 
 <footer>
-	<span>&copy; {today.getFullYear()} Zigao Wang</span>
+	<span>&copy; {today.getFullYear()} <a href="https://zigao.wang" target="_blank" rel="noreferrer">Zigao Wang</a></span>
 </footer>
 <style>
 	footer {
@@ -14,5 +14,12 @@ const today = new Date();
 		text-align: center;
 		font-size: 0.75rem;
 		color: var(--text-secondary);
+	}
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
 	}
 </style>
