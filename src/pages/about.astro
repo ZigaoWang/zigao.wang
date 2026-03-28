@@ -1,0 +1,42 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`About - ${SITE_TITLE}`} description="About Zigao Wang" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article class="about">
+				<h1>About</h1>
+				<p>
+					I'm Zigao, a high school student who likes building things with code.
+					I'm into indie apps, open source, and figuring out how stuff works.
+				</p>
+				<p>
+					This blog is where I write notes for myself — on talks I go to, things I'm
+					building, books I'm reading. You're welcome to read along.
+				</p>
+				<p>
+					More about me at <a href="https://zigao.wang">zigao.wang</a>.
+				</p>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.about {
+		max-width: 500px;
+		line-height: 1.85;
+	}
+	.about h1 { margin-bottom: 1.2rem; }
+	.about p { margin-bottom: 1rem; }
+</style>

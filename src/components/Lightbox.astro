@@ -1,0 +1,85 @@
+---
+/**
+ * Lightbox overlay — include once in the layout.
+ * Any <a data-lightbox> with an href pointing to an image will open in the lightbox.
+ */
+---
+
+<div id="lightbox" class="lightbox" aria-hidden="true">
+	<button class="lightbox-close" aria-label="Close">&times;</button>
+	<img class="lightbox-img" src="" alt="" />
+</div>
+
+<script>
+	const lightbox = document.getElementById('lightbox')!;
+	const lbImg = lightbox.querySelector('.lightbox-img') as HTMLImageElement;
+	const lbClose = lightbox.querySelector('.lightbox-close') as HTMLButtonElement;
+
+	document.querySelectorAll<HTMLAnchorElement>('a[data-lightbox]').forEach((a) => {
+		a.addEventListener('click', (e) => {
+			e.preventDefault();
+			lbImg.src = a.href;
+			lbImg.alt = a.querySelector('img')?.alt || '';
+			lightbox.setAttribute('aria-hidden', 'false');
+			document.body.style.overflow = 'hidden';
+		});
+	});
+
+	function close() {
+		lightbox.setAttribute('aria-hidden', 'true');
+		document.body.style.overflow = '';
+		lbImg.src = '';
+	}
+
+	lbClose.addEventListener('click', close);
+	lightbox.addEventListener('click', (e) => {
+		if (e.target === lightbox) close();
+	});
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') close();
+	});
+</script>
+
+<style>
+	.lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 999;
+		background: rgba(0, 0, 0, 0.9);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2em;
+		cursor: zoom-out;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
+	.lightbox[aria-hidden="false"] {
+		opacity: 1;
+		pointer-events: auto;
+	}
+	.lightbox-img {
+		max-width: 100%;
+		max-height: 90vh;
+		object-fit: contain;
+		border-radius: 6px;
+		cursor: default;
+	}
+	.lightbox-close {
+		position: absolute;
+		top: 1em;
+		right: 1.25em;
+		background: none;
+		border: none;
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 2em;
+		cursor: pointer;
+		line-height: 1;
+		padding: 0.2em;
+		transition: color 0.15s;
+	}
+	.lightbox-close:hover {
+		color: #fff;
+	}
+</style>

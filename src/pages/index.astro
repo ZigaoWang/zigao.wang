@@ -1,0 +1,177 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<div class="hero">
+			<div class="hero-overlay"></div>
+			<div class="hero-fade"></div>
+			<div class="hero-content">
+				<h1>Zigao's Blog</h1>
+				<p>
+					I'm a high school student who builds things with code. This is where I write
+					about indie apps, talks I attend, books I'm reading, and whatever else I find
+					interesting.
+				</p>
+			</div>
+		</div>
+		<main>
+			{posts.length > 0 && (
+				<div class="post-list">
+					{posts.map((post) => (
+						<a href={`/blog/${post.id}/`} class="card">
+							{post.data.heroImage && (
+								<div class="card-thumb">
+									<Image src={post.data.heroImage} alt="" width={280} height={160} />
+								</div>
+							)}
+							<div class="card-body">
+								<h3>{post.data.title}</h3>
+								<p class="card-desc">{post.data.description}</p>
+								<span class="card-date"><FormattedDate date={post.data.pubDate} /></span>
+							</div>
+						</a>
+					))}
+				</div>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.hero {
+		position: relative;
+		height: 480px;
+		background: url('/bg.jpg') center 35% / cover no-repeat;
+		display: flex;
+		align-items: flex-end;
+		overflow: hidden;
+	}
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse at 30% 90%, rgba(0,0,0,0.5) 0%, transparent 70%),
+			linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
+	}
+	.hero-fade {
+		position: absolute;
+		bottom: 0; left: 0; right: 0;
+		height: 140px;
+		background: linear-gradient(to bottom, transparent, var(--bg));
+		z-index: 1;
+	}
+	.hero-content {
+		position: relative;
+		z-index: 2;
+		max-width: var(--max-w);
+		margin: 0 auto;
+		padding: 0 var(--px) 2.5rem;
+		width: 100%;
+	}
+	.hero-content h1 {
+		color: #fff;
+		font-size: 2.6rem;
+		margin-bottom: 0.3rem;
+		letter-spacing: -0.03em;
+		text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+	}
+	.hero-content p {
+		color: rgba(255,255,255,0.75);
+		font-size: 0.95rem;
+		line-height: 1.7;
+		max-width: 440px;
+		margin: 0;
+		text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+	}
+
+	main {
+		padding: 2rem var(--px) 2rem;
+	}
+
+	.post-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	.card {
+		display: flex;
+		gap: 1.25rem;
+		align-items: center;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 10px;
+		padding: 1rem 1.2rem;
+		text-decoration: none;
+		color: var(--text);
+		transition: background 0.15s, border-color 0.15s;
+	}
+	.card:hover {
+		background: var(--surface-hover);
+		border-color: #2a2a2a;
+		text-decoration: none;
+	}
+	.card-thumb {
+		flex-shrink: 0;
+		width: 140px;
+		height: 90px;
+		border-radius: 6px;
+		overflow: hidden;
+	}
+	.card-thumb :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 6px;
+	}
+	.card-body {
+		flex: 1;
+		min-width: 0;
+	}
+	.card h3 {
+		font-size: 1.05rem;
+		margin: 0 0 0.3rem;
+		font-weight: 400;
+		line-height: 1.35;
+	}
+	.card-desc {
+		color: var(--text-secondary);
+		font-size: 0.84rem;
+		line-height: 1.55;
+		margin: 0 0 0.5rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.card-date {
+		font-size: 0.75rem;
+		color: var(--text-secondary);
+	}
+
+	@media (max-width: 600px) {
+		.hero { height: 380px; }
+		.hero-content h1 { font-size: 2.1rem; }
+		.hero-fade { height: 100px; }
+		.card { flex-direction: column; align-items: stretch; gap: 0; }
+		.card-thumb { width: 100%; height: 160px; border-radius: 6px 6px 0 0; }
+		.card-body { padding: 0.75rem 0.25rem 0.25rem; }
+	}
+</style>
