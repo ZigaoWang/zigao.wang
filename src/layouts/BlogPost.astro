@@ -8,7 +8,8 @@ import Lightbox from '../components/Lightbox.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate } = Astro.props;
+const { title, description, pubDate, updatedDate, category, rating, author } = Astro.props;
+const isBook = category === 'Book Notes';
 ---
 
 <html lang="en">
@@ -22,6 +23,8 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 				<a href="/blog" class="back">&larr; All posts</a>
 				<header class="post-header">
 					<div class="meta">
+						{category && <span>{category}</span>}
+						{category && <span class="dot">&middot;</span>}
 						<FormattedDate date={pubDate} />
 						{updatedDate && (
 							<span class="updated">
@@ -30,7 +33,17 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 						)}
 					</div>
 					<h1>{title}</h1>
+					{isBook && author && <p class="author">by {author}</p>}
 					{description && <p class="desc">{description}</p>}
+					{rating && (
+						<div class="star-rating">
+							{[1,2,3,4,5].map((i) => (
+								<svg class={i <= rating ? 'star-filled' : 'star-empty'} viewBox="0 0 20 20" fill="currentColor">
+									<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+								</svg>
+							))}
+						</div>
+					)}
 				</header>
 				<div class="prose">
 					<slot />
@@ -45,45 +58,70 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 <style>
 	.back {
 		display: inline-block;
-		font-size: 0.82rem;
+		font-size: 0.85rem;
 		color: var(--text-secondary);
 		text-decoration: none;
-		margin-bottom: 1.75rem;
+		margin-bottom: 2rem;
 		transition: color 0.15s;
 	}
 	.back:hover { color: var(--text); }
 	.post-header {
-		margin-bottom: 2rem;
-		padding-bottom: 1.5rem;
+		margin-bottom: 2.5rem;
+		padding-bottom: 1.75rem;
 		border-bottom: 1px solid var(--border);
 	}
 	.post-header h1 {
-		margin: 0.2rem 0 0.4rem;
-		font-size: 2rem;
+		margin: 0.25rem 0 0.4rem;
+		font-size: 2.15rem;
 		line-height: 1.2;
 		letter-spacing: -0.02em;
 	}
+	.author {
+		font-size: 1rem;
+		color: var(--text-secondary);
+		margin: 0 0 0.5rem;
+	}
 	.desc {
 		color: var(--text-secondary);
-		font-size: 0.95rem;
+		font-size: 1rem;
 		line-height: 1.65;
-		margin: 0;
+		margin: 0 0 0.75rem;
 	}
 	.meta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
 		color: var(--text-secondary);
-		font-size: 0.82rem;
+		font-size: 0.85rem;
+	}
+	.dot {
+		opacity: 0.4;
 	}
 	.updated { font-style: italic; }
 
-	.prose { line-height: 1.8; }
-	.prose :global(h2) { margin-top: 2rem; margin-bottom: 0.5rem; }
-	.prose :global(h3) { margin-top: 1.5rem; margin-bottom: 0.4rem; }
-	.prose :global(p) { margin-bottom: 1.1rem; }
+	/* SVG star rating */
+	.star-rating {
+		display: inline-flex;
+		gap: 3px;
+		margin-top: 0.25rem;
+	}
+	.star-rating :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+	.star-filled { color: #c27b3e; }
+	.star-empty { color: #333; }
+
+	.prose { line-height: 1.8; font-size: 1rem; }
+	.prose :global(h2) { margin-top: 2.5rem; margin-bottom: 0.6rem; }
+	.prose :global(h3) { margin-top: 1.75rem; margin-bottom: 0.5rem; }
+	.prose :global(p) { margin-bottom: 1.2rem; }
 	.prose :global(ul),
-	.prose :global(ol) { margin-bottom: 1.1rem; padding-left: 1.5rem; }
-	.prose :global(li) { margin-bottom: 0.3rem; }
-	.prose :global(figure) { margin: 1.5rem 0; }
+	.prose :global(ol) { margin-bottom: 1.2rem; padding-left: 1.5rem; }
+	.prose :global(li) { margin-bottom: 0.35rem; }
+	.prose :global(figure) { margin: 2rem 0; }
 	.prose :global(.photo-small) { max-width: 400px; }
-	.prose :global(pre) { margin: 1.5rem 0; }
-	.prose :global(hr) { margin: 2rem 0; }
+	.prose :global(pre) { margin: 1.75rem 0; }
+	.prose :global(hr) { margin: 2.5rem 0; }
 </style>
