@@ -19,71 +19,261 @@ const isBook = category === 'Book Notes';
 	</head>
 	<body>
 		<Header />
-		<main>
-			<article>
-				<a href="/blog" class="back">&larr; All posts</a>
+		<div class="page-wrap">
+			<main>
+				<article>
+					<a href="/blog" class="back">&larr; All posts</a>
 
-				{isBook && heroImage ? (
-					<header class="book-header">
-						<div class="book-cover-wrap">
-							<div class="book-cover-shadow"></div>
-							<div class="book-cover-pages">
-								<div class="book-cover-page"></div>
-								<div class="book-cover-page"></div>
-								<div class="book-cover-page"></div>
+					{isBook && heroImage ? (
+						<header class="book-header">
+							<div class="book-cover-wrap">
+								<div class="book-cover-shadow"></div>
+								<div class="book-cover-pages">
+									<div class="book-cover-page"></div>
+									<div class="book-cover-page"></div>
+									<div class="book-cover-page"></div>
+								</div>
+								<div class="book-cover-front">
+									<Image src={heroImage} alt={title} width={320} height={480} />
+								</div>
 							</div>
-							<div class="book-cover-front">
-								<Image src={heroImage} alt={title} width={320} height={480} />
+							<div class="book-meta">
+								<div class="meta">
+									{category && <span>{category}</span>}
+									<span class="dot">&middot;</span>
+									<FormattedDate date={pubDate} />
+								</div>
+								<h1>{title}</h1>
+								{author && <p class="author">by {author}</p>}
+								{description && <p class="desc">{description}</p>}
+								{rating && (
+									<div class="star-rating">
+										{[1,2,3,4,5].map((i) => (
+											<svg class={i <= rating ? 'star-filled' : 'star-empty'} viewBox="0 0 20 20" fill="currentColor">
+												<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+											</svg>
+										))}
+									</div>
+								)}
 							</div>
-						</div>
-						<div class="book-meta">
+						</header>
+					) : (
+						<header class="post-header">
 							<div class="meta">
 								{category && <span>{category}</span>}
-								<span class="dot">&middot;</span>
+								{category && <span class="dot">&middot;</span>}
 								<FormattedDate date={pubDate} />
+								{updatedDate && (
+									<span class="updated">
+										&middot; Updated <FormattedDate date={updatedDate} />
+									</span>
+								)}
 							</div>
 							<h1>{title}</h1>
-							{author && <p class="author">by {author}</p>}
 							{description && <p class="desc">{description}</p>}
-							{rating && (
-								<div class="star-rating">
-									{[1,2,3,4,5].map((i) => (
-										<svg class={i <= rating ? 'star-filled' : 'star-empty'} viewBox="0 0 20 20" fill="currentColor">
-											<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-										</svg>
-									))}
-								</div>
-							)}
-						</div>
-					</header>
-				) : (
-					<header class="post-header">
-						<div class="meta">
-							{category && <span>{category}</span>}
-							{category && <span class="dot">&middot;</span>}
-							<FormattedDate date={pubDate} />
-							{updatedDate && (
-								<span class="updated">
-									&middot; Updated <FormattedDate date={updatedDate} />
-								</span>
-							)}
-						</div>
-						<h1>{title}</h1>
-						{description && <p class="desc">{description}</p>}
-					</header>
-				)}
+						</header>
+					)}
 
-				<div class="prose">
-					<slot />
-				</div>
-			</article>
-		</main>
+					<div class="prose" id="prose-content">
+						<slot />
+					</div>
+				</article>
+			</main>
+
+			<aside class="toc" id="toc">
+				<nav id="toc-nav">
+					<p class="toc-label">On this page</p>
+					<div class="toc-links" id="toc-links"></div>
+					<div class="toc-progress">
+						<div class="toc-progress-fill" id="toc-progress"></div>
+					</div>
+					<button class="toc-top" id="toc-top" title="Back to top">
+						<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 11V3m0 0L3 7m4-4l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						Top
+					</button>
+				</nav>
+			</aside>
+		</div>
 		<Footer />
 		<Lightbox />
+
+		<script>
+			const prose = document.getElementById('prose-content');
+			const tocLinks = document.getElementById('toc-links');
+			const toc = document.getElementById('toc');
+			const progressFill = document.getElementById('toc-progress');
+			const topBtn = document.getElementById('toc-top');
+			if (prose && tocLinks && toc) {
+				const headings = prose.querySelectorAll<HTMLElement>('h2, h3');
+				if (headings.length >= 3) {
+					tocLinks.innerHTML = Array.from(headings).map((h) =>
+						`<a href="#${h.id}" class="${h.tagName === 'H3' ? 'sub' : ''}">${h.textContent}</a>`
+					).join('');
+
+					const links = tocLinks.querySelectorAll('a');
+
+					// scroll spy
+					const observer = new IntersectionObserver((entries) => {
+						for (const entry of entries) {
+							if (entry.isIntersecting) {
+								links.forEach((a) => a.classList.remove('active'));
+								const active = tocLinks.querySelector(`a[href="#${entry.target.id}"]`);
+								active?.classList.add('active');
+								active?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+							}
+						}
+					}, { rootMargin: '-80px 0px -75% 0px' });
+					headings.forEach((h) => observer.observe(h));
+
+					// reading progress
+					if (progressFill) {
+						const update = () => {
+							const rect = prose.getBoundingClientRect();
+							const pct = Math.min(100, Math.max(0, -rect.top / (prose.scrollHeight - window.innerHeight) * 100));
+							progressFill.style.width = pct + '%';
+						};
+						window.addEventListener('scroll', update, { passive: true });
+						update();
+					}
+
+					// back to top
+					topBtn?.addEventListener('click', () => {
+						window.scrollTo({ top: 0, behavior: 'smooth' });
+					});
+
+					// smooth scroll with offset
+					links.forEach((a) => {
+						a.addEventListener('click', (e) => {
+							e.preventDefault();
+							const id = a.getAttribute('href')!.slice(1);
+							const el = document.getElementById(id);
+							if (el) {
+								const y = el.getBoundingClientRect().top + window.scrollY - 80;
+								window.scrollTo({ top: y, behavior: 'smooth' });
+							}
+						});
+					});
+				} else {
+					toc.remove();
+				}
+			}
+		</script>
 	</body>
 </html>
 
 <style>
+	.page-wrap {
+		display: flex;
+		justify-content: center;
+		gap: 0;
+		padding: 0 var(--px);
+	}
+	main {
+		flex: 0 1 var(--max-w);
+		min-width: 0;
+		padding: 2.5rem 0 3rem;
+	}
+
+	/* ══════════════════════════════
+	   Table of contents
+	   ══════════════════════════════ */
+	.toc {
+		width: 200px;
+		flex-shrink: 0;
+	}
+	.toc nav {
+		position: sticky;
+		top: 1.5rem;
+		padding: 3rem 0 2rem 1.5rem;
+		max-height: calc(100vh - 3rem);
+		display: flex;
+		flex-direction: column;
+	}
+	.toc-label {
+		font-size: 0.65rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--text-secondary);
+		opacity: 0.5;
+		margin: 0 0 0.75rem;
+		padding-left: 0.75rem;
+	}
+	.toc-links {
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+		flex: 1;
+		min-height: 0;
+		border-left: 1px solid var(--border);
+	}
+	.toc-links::-webkit-scrollbar { width: 0; }
+	.toc :global(a) {
+		font-size: 0.76rem;
+		line-height: 1.4;
+		color: var(--text-secondary);
+		text-decoration: none;
+		padding: 0.3rem 0.75rem;
+		margin-left: -1px;
+		border-left: 2px solid transparent;
+		transition: color 0.2s, border-color 0.2s;
+		opacity: 0.65;
+	}
+	.toc :global(a:hover) {
+		color: var(--text);
+		opacity: 1;
+	}
+	.toc :global(a.active) {
+		color: var(--text);
+		border-left-color: var(--text);
+		opacity: 1;
+	}
+	.toc :global(a.sub) {
+		padding-left: 1.5rem;
+		font-size: 0.7rem;
+	}
+
+	/* progress */
+	.toc-progress {
+		margin: 1rem 0 0 0.75rem;
+		height: 2px;
+		background: var(--border);
+		border-radius: 1px;
+		overflow: hidden;
+		width: calc(100% - 0.75rem);
+	}
+	.toc-progress-fill {
+		height: 100%;
+		width: 0%;
+		background: var(--text-secondary);
+		border-radius: 1px;
+		transition: width 0.15s ease;
+	}
+
+	/* back to top */
+	.toc-top {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+		margin-top: 0.75rem;
+		padding: 0.3rem 0.75rem;
+		background: none;
+		border: none;
+		color: var(--text-secondary);
+		font-size: 0.7rem;
+		font-family: inherit;
+		cursor: pointer;
+		opacity: 0.5;
+		transition: opacity 0.15s, color 0.15s;
+	}
+	.toc-top:hover {
+		opacity: 1;
+		color: var(--text);
+	}
+
+	/* ══════════════════════════════
+	   Back link
+	   ══════════════════════════════ */
 	.back {
 		display: inline-block;
 		font-size: 0.85rem;
@@ -94,7 +284,9 @@ const isBook = category === 'Book Notes';
 	}
 	.back:hover { color: var(--text); }
 
-	/* ── Regular post header ── */
+	/* ══════════════════════════════
+	   Regular post header
+	   ══════════════════════════════ */
 	.post-header {
 		margin-bottom: 2.5rem;
 		padding-bottom: 1.75rem;
@@ -107,7 +299,9 @@ const isBook = category === 'Book Notes';
 		letter-spacing: -0.02em;
 	}
 
-	/* ── Book header with cover ── */
+	/* ══════════════════════════════
+	   Book header with 3D cover
+	   ══════════════════════════════ */
 	.book-header {
 		display: flex;
 		gap: 2rem;
@@ -122,12 +316,8 @@ const isBook = category === 'Book Notes';
 		line-height: 1.2;
 		letter-spacing: -0.02em;
 	}
-	.book-meta {
-		flex: 1;
-		min-width: 0;
-	}
+	.book-meta { flex: 1; min-width: 0; }
 
-	/* 3D cover in header */
 	.book-cover-wrap {
 		position: relative;
 		flex-shrink: 0;
@@ -148,11 +338,7 @@ const isBook = category === 'Book Notes';
 		opacity: 0.9;
 		filter: blur(18px);
 	}
-	.book-cover-pages {
-		position: absolute;
-		inset: 0;
-		border-radius: 3px;
-	}
+	.book-cover-pages { position: absolute; inset: 0; border-radius: 3px; }
 	.book-cover-page {
 		position: absolute;
 		background: #1a1a1a;
@@ -175,9 +361,7 @@ const isBook = category === 'Book Notes';
 		box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 		transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
 	}
-	.book-cover-wrap:hover .book-cover-front {
-		transform: rotateY(-18deg);
-	}
+	.book-cover-wrap:hover .book-cover-front { transform: rotateY(-18deg); }
 	.book-cover-front :global(img) {
 		display: block;
 		width: 140px;
@@ -185,17 +369,11 @@ const isBook = category === 'Book Notes';
 		border-radius: 3px;
 	}
 
-	.author {
-		font-size: 1rem;
-		color: var(--text-secondary);
-		margin: 0 0 0.5rem;
-	}
-	.desc {
-		color: var(--text-secondary);
-		font-size: 1rem;
-		line-height: 1.65;
-		margin: 0 0 0.75rem;
-	}
+	/* ══════════════════════════════
+	   Shared
+	   ══════════════════════════════ */
+	.author { font-size: 1rem; color: var(--text-secondary); margin: 0 0 0.5rem; }
+	.desc { color: var(--text-secondary); font-size: 1rem; line-height: 1.65; margin: 0 0 0.75rem; }
 	.meta {
 		display: flex;
 		align-items: center;
@@ -207,15 +385,8 @@ const isBook = category === 'Book Notes';
 	.dot { opacity: 0.4; }
 	.updated { font-style: italic; }
 
-	/* SVG star rating */
-	.star-rating {
-		display: inline-flex;
-		gap: 3px;
-	}
-	.star-rating :global(svg) {
-		width: 20px;
-		height: 20px;
-	}
+	.star-rating { display: inline-flex; gap: 3px; }
+	.star-rating :global(svg) { width: 20px; height: 20px; }
 	.star-filled { color: #c27b3e; }
 	.star-empty { color: #333; }
 
@@ -231,22 +402,16 @@ const isBook = category === 'Book Notes';
 	.prose :global(pre) { margin: 1.75rem 0; }
 	.prose :global(hr) { margin: 2.5rem 0; }
 
+	@media (max-width: 1100px) {
+		.toc { display: none; }
+	}
+
 	@media (max-width: 600px) {
-		.book-header {
-			gap: 1.25rem;
-		}
-		.book-cover-wrap {
-			width: 100px;
-		}
-		.book-cover-front :global(img) {
-			width: 100px;
-		}
-		.book-header h1 {
-			font-size: 1.6rem;
-		}
-		.desc {
-			font-size: 0.9rem;
-		}
+		.book-header { gap: 1.25rem; }
+		.book-cover-wrap { width: 100px; }
+		.book-cover-front :global(img) { width: 100px; }
+		.book-header h1 { font-size: 1.6rem; }
+		.desc { font-size: 0.9rem; }
 	}
 
 	@media (prefers-reduced-motion: reduce) {
