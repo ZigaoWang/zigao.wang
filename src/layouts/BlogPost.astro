@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
@@ -8,7 +9,7 @@ import Lightbox from '../components/Lightbox.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, category, rating, author } = Astro.props;
+const { title, description, pubDate, updatedDate, category, rating, author, heroImage } = Astro.props;
 const isBook = category === 'Book Notes';
 ---
 
@@ -21,30 +22,57 @@ const isBook = category === 'Book Notes';
 		<main>
 			<article>
 				<a href="/blog" class="back">&larr; All posts</a>
-				<header class="post-header">
-					<div class="meta">
-						{category && <span>{category}</span>}
-						{category && <span class="dot">&middot;</span>}
-						<FormattedDate date={pubDate} />
-						{updatedDate && (
-							<span class="updated">
-								&middot; Updated <FormattedDate date={updatedDate} />
-							</span>
-						)}
-					</div>
-					<h1>{title}</h1>
-					{isBook && author && <p class="author">by {author}</p>}
-					{description && <p class="desc">{description}</p>}
-					{rating && (
-						<div class="star-rating">
-							{[1,2,3,4,5].map((i) => (
-								<svg class={i <= rating ? 'star-filled' : 'star-empty'} viewBox="0 0 20 20" fill="currentColor">
-									<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-								</svg>
-							))}
+
+				{isBook && heroImage ? (
+					<header class="book-header">
+						<div class="book-cover-wrap">
+							<div class="book-cover-shadow"></div>
+							<div class="book-cover-pages">
+								<div class="book-cover-page"></div>
+								<div class="book-cover-page"></div>
+								<div class="book-cover-page"></div>
+							</div>
+							<div class="book-cover-front">
+								<Image src={heroImage} alt={title} width={320} height={480} />
+							</div>
 						</div>
-					)}
-				</header>
+						<div class="book-meta">
+							<div class="meta">
+								{category && <span>{category}</span>}
+								<span class="dot">&middot;</span>
+								<FormattedDate date={pubDate} />
+							</div>
+							<h1>{title}</h1>
+							{author && <p class="author">by {author}</p>}
+							{description && <p class="desc">{description}</p>}
+							{rating && (
+								<div class="star-rating">
+									{[1,2,3,4,5].map((i) => (
+										<svg class={i <= rating ? 'star-filled' : 'star-empty'} viewBox="0 0 20 20" fill="currentColor">
+											<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+										</svg>
+									))}
+								</div>
+							)}
+						</div>
+					</header>
+				) : (
+					<header class="post-header">
+						<div class="meta">
+							{category && <span>{category}</span>}
+							{category && <span class="dot">&middot;</span>}
+							<FormattedDate date={pubDate} />
+							{updatedDate && (
+								<span class="updated">
+									&middot; Updated <FormattedDate date={updatedDate} />
+								</span>
+							)}
+						</div>
+						<h1>{title}</h1>
+						{description && <p class="desc">{description}</p>}
+					</header>
+				)}
+
 				<div class="prose">
 					<slot />
 				</div>
@@ -65,6 +93,8 @@ const isBook = category === 'Book Notes';
 		transition: color 0.15s;
 	}
 	.back:hover { color: var(--text); }
+
+	/* ── Regular post header ── */
 	.post-header {
 		margin-bottom: 2.5rem;
 		padding-bottom: 1.75rem;
@@ -76,6 +106,69 @@ const isBook = category === 'Book Notes';
 		line-height: 1.2;
 		letter-spacing: -0.02em;
 	}
+
+	/* ── Book header with cover ── */
+	.book-header {
+		display: flex;
+		gap: 2rem;
+		align-items: flex-start;
+		margin-bottom: 2.5rem;
+		padding-bottom: 1.75rem;
+		border-bottom: 1px solid var(--border);
+	}
+	.book-header h1 {
+		margin: 0.25rem 0 0.3rem;
+		font-size: 2.15rem;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+	}
+	.book-meta {
+		flex: 1;
+		min-width: 0;
+	}
+
+	/* 3D cover in header */
+	.book-cover-wrap {
+		position: relative;
+		flex-shrink: 0;
+		width: 140px;
+		perspective: 1200px;
+	}
+	.book-cover-shadow {
+		position: absolute;
+		inset: 6px -6px -8px -6px;
+		background: rgba(0,0,0,0.3);
+		filter: blur(14px);
+		border-radius: 4px;
+		opacity: 0.6;
+	}
+	.book-cover-pages {
+		position: absolute;
+		inset: 0;
+		border-radius: 3px;
+	}
+	.book-cover-page {
+		position: absolute;
+		background: #1a1a1a;
+		border: 1px solid rgba(255,255,255,0.04);
+		border-radius: 3px;
+	}
+	.book-cover-page:nth-child(1) { inset: 2px 1px 2px auto; width: 100%; }
+	.book-cover-page:nth-child(2) { inset: 4px 3px 4px auto; width: 100%; }
+	.book-cover-page:nth-child(3) { inset: 6px 5px 6px auto; width: 100%; }
+	.book-cover-front {
+		position: relative;
+		border-radius: 3px;
+		overflow: hidden;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+	}
+	.book-cover-front :global(img) {
+		display: block;
+		width: 140px;
+		height: auto;
+		border-radius: 3px;
+	}
+
 	.author {
 		font-size: 1rem;
 		color: var(--text-secondary);
@@ -95,16 +188,13 @@ const isBook = category === 'Book Notes';
 		color: var(--text-secondary);
 		font-size: 0.85rem;
 	}
-	.dot {
-		opacity: 0.4;
-	}
+	.dot { opacity: 0.4; }
 	.updated { font-style: italic; }
 
 	/* SVG star rating */
 	.star-rating {
 		display: inline-flex;
 		gap: 3px;
-		margin-top: 0.25rem;
 	}
 	.star-rating :global(svg) {
 		width: 20px;
@@ -124,4 +214,22 @@ const isBook = category === 'Book Notes';
 	.prose :global(.photo-small) { max-width: 400px; }
 	.prose :global(pre) { margin: 1.75rem 0; }
 	.prose :global(hr) { margin: 2.5rem 0; }
+
+	@media (max-width: 600px) {
+		.book-header {
+			gap: 1.25rem;
+		}
+		.book-cover-wrap {
+			width: 100px;
+		}
+		.book-cover-front :global(img) {
+			width: 100px;
+		}
+		.book-header h1 {
+			font-size: 1.6rem;
+		}
+		.desc {
+			font-size: 0.9rem;
+		}
+	}
 </style>

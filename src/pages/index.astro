@@ -273,10 +273,12 @@ const posts = (await getCollection('blog')).sort(
 		.hero-content h1 { font-size: 2.1rem; }
 		.hero-fade { height: 100px; }
 		.card { gap: 1rem; padding: 1rem; }
-		.thumb { width: 120px; height: 75px; }
+		.thumb { width: 110px; height: 70px; }
 		.book-cover { width: 70px; }
 		.book-front :global(img) { width: 70px; }
-		.card h3 { font-size: 1rem; }
+		.card h3 { font-size: 0.95rem; }
+		.desc { font-size: 0.82rem; -webkit-line-clamp: 1; }
+		.foot { font-size: 0.72rem; }
 	}
 
 	@media (prefers-reduced-motion: reduce) {
