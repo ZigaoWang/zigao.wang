@@ -6,6 +6,7 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import Lightbox from '../components/Lightbox.astro';
+import StarRating from '../components/StarRating.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -57,15 +58,7 @@ const isBook = category === 'Book Notes';
 								<h1>{title}</h1>
 								{author && <p class="author">by {author}</p>}
 								{description && <p class="desc">{description}</p>}
-								{rating && (
-									<div class="star-rating">
-										{[1,2,3,4,5].map((i) => (
-											<svg class={i <= rating ? 'star-filled' : 'star-empty'} viewBox="0 0 20 20" fill="currentColor">
-												<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-											</svg>
-										))}
-									</div>
-								)}
+								{rating && <StarRating rating={rating} />}
 							</div>
 						</header>
 					) : (
@@ -478,11 +471,6 @@ const isBook = category === 'Book Notes';
 	}
 	.dot { opacity: 0.4; }
 	.updated { font-style: italic; }
-
-	.star-rating { display: inline-flex; gap: 3px; }
-	.star-rating :global(svg) { width: 20px; height: 20px; }
-	.star-filled { color: #c27b3e; }
-	.star-empty { color: #333; }
 
 	.prose { line-height: 1.8; font-size: 1rem; }
 	.prose :global(h2) { margin-top: 2.5rem; margin-bottom: 0.6rem; scroll-margin-top: 5rem; }

@@ -1,0 +1,38 @@
+---
+interface Props {
+	rating: number;
+	size?: number;
+}
+
+const { rating, size = 20 } = Astro.props;
+const d = "M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z";
+const full = Math.floor(rating);
+const hasHalf = rating % 1 >= 0.5;
+const stars = [1,2,3,4,5].map(i => {
+	if (i <= full) return 'full';
+	if (i === full + 1 && hasHalf) return 'half';
+	return 'empty';
+});
+---
+
+<span class="star-rating">
+	{stars.map((s, i) =>
+		s === 'half' ? (
+			<svg width={size} height={size} viewBox="0 0 20 20">
+				<defs><clipPath id={`half-${i}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs>
+				<path fill-rule="evenodd" d={d} clip-rule="evenodd" fill="#333" />
+				<path fill-rule="evenodd" d={d} clip-rule="evenodd" fill="#c27b3e" clip-path={`url(#half-${i})`} />
+			</svg>
+		) : (
+			<svg class={s === 'full' ? 'star-filled' : 'star-empty'} width={size} height={size} viewBox="0 0 20 20" fill="currentColor">
+				<path fill-rule="evenodd" d={d} clip-rule="evenodd" />
+			</svg>
+		)
+	)}
+</span>
+
+<style>
+	.star-rating { display: inline-flex; gap: 2px; vertical-align: middle; }
+	.star-filled { color: #c27b3e; }
+	.star-empty { color: #333; }
+</style>

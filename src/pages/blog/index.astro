@@ -5,6 +5,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import StarRating from '../../components/StarRating.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
@@ -56,10 +57,10 @@ const posts = (await getCollection('blog')).sort(
 										<span class="dot">&middot;</span>
 										<FormattedDate date={post.data.pubDate} />
 										{post.data.rating && (
-											<>
+											<span class="rating-wrap">
 												<span class="dot">&middot;</span>
-												<span class="stars">{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}</span>
-											</>
+												<StarRating rating={post.data.rating} size={14} />
+											</span>
 										)}
 									</div>
 								</div>
@@ -213,7 +214,6 @@ const posts = (await getCollection('blog')).sort(
 	}
 	.cat { color: var(--text-secondary); }
 	.dot { opacity: 0.4; }
-	.stars { color: #c27b3e; letter-spacing: 1px; }
 
 	@media (max-width: 600px) {
 		.card { gap: 1rem; padding: 1rem; }
