@@ -37,6 +37,7 @@ const posts = (await getCollection('blog')).sort(
 				<div class="post-list">
 					{posts.map((post) => {
 						const isBook = post.data.category === 'Books';
+						const readTime = Math.max(1, Math.round(post.body.split(/\s+/).length / 200));
 						return (
 							<a href={`/blog/${post.id}/`} class="card">
 								{post.data.heroImage && (
@@ -66,6 +67,8 @@ const posts = (await getCollection('blog')).sort(
 										{post.data.category && <span class="cat">{post.data.category}</span>}
 										<span class="dot">&middot;</span>
 										<FormattedDate date={post.data.pubDate} />
+										<span class="dot">&middot;</span>
+										<span>{readTime} min</span>
 										{post.data.rating && (
 											<span class="rating-wrap">
 												<span class="dot">&middot;</span>

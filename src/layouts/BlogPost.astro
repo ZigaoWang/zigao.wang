@@ -8,9 +8,9 @@ import Header from '../components/Header.astro';
 import Lightbox from '../components/Lightbox.astro';
 import StarRating from '../components/StarRating.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { readTime?: number };
 
-const { title, description, pubDate, updatedDate, category, rating, author, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, category, rating, author, heroImage, readTime } = Astro.props;
 const isBook = category === 'Books';
 ---
 
@@ -54,6 +54,9 @@ const isBook = category === 'Books';
 									{category && <span>{category}</span>}
 									<span class="dot">&middot;</span>
 									<FormattedDate date={pubDate} />
+									{readTime && (
+										<span>&middot; {readTime} min read</span>
+									)}
 								</div>
 								<h1>{title}</h1>
 								{author && <p class="author">by {author}</p>}
@@ -67,6 +70,9 @@ const isBook = category === 'Books';
 								{category && <span>{category}</span>}
 								{category && <span class="dot">&middot;</span>}
 								<FormattedDate date={pubDate} />
+								{readTime && (
+									<span>&middot; {readTime} min read</span>
+								)}
 								{updatedDate && (
 									<span class="updated">
 										&middot; Updated <FormattedDate date={updatedDate} />
