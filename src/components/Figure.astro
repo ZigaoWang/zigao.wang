@@ -31,18 +31,11 @@ const { src, alt, caption, width = 640, class: className } = Astro.props;
 		cursor: zoom-in;
 		border: none;
 		text-decoration: none;
-		border-radius: 10px;
 		overflow: hidden;
 	}
 	.lightbox-trigger :global(img) {
 		display: block;
-		border-radius: 10px;
-		transition: transform 0.3s, opacity 0.2s;
 		margin: 0 auto;
-	}
-	.lightbox-trigger:hover :global(img) {
-		transform: scale(1.015);
-		opacity: 0.92;
 	}
 	figcaption {
 		margin-top: 0.6em;
