@@ -32,7 +32,8 @@ const stars = [1,2,3,4,5].map(i => {
 </span>
 
 <style>
-	.star-rating { display: inline-flex; gap: 2px; vertical-align: middle; }
+	.star-rating { display: inline-flex; vertical-align: middle; }
+	.star-rating > * + * { margin-left: 2px; }
 	.star-filled { color: #c27b3e; }
 	.star-empty { color: #333; }
 </style>

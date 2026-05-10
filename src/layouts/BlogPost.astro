@@ -285,7 +285,6 @@ const isBook = category === 'Books';
 	.toc-top {
 		display: flex;
 		align-items: center;
-		gap: 0.35rem;
 		margin-top: 0.6rem;
 		padding: 0;
 		background: none;
@@ -298,6 +297,7 @@ const isBook = category === 'Books';
 		transition: opacity 0.15s, color 0.15s;
 	}
 	.toc-top:hover { opacity: 1; color: var(--text); }
+	.toc-top > * + * { margin-left: 0.35rem; }
 
 	/* ══════════════════════════════
 	   Mobile TOC — sticky bar
@@ -315,7 +315,6 @@ const isBook = category === 'Books';
 	.mob-toc-btn {
 		display: flex;
 		align-items: center;
-		gap: 0.45rem;
 		width: 100%;
 		padding: 0.7rem var(--px);
 		background: none;
@@ -325,6 +324,7 @@ const isBook = category === 'Books';
 		font-family: inherit;
 		cursor: pointer;
 	}
+	.mob-toc-btn > * + * { margin-left: 0.45rem; }
 	.mob-toc-btn svg:first-child { opacity: 0.5; flex-shrink: 0; }
 	.mob-toc-btn :global(#mob-toc-label) {
 		flex: 1;
@@ -400,12 +400,12 @@ const isBook = category === 'Books';
 	   ══════════════════════════════ */
 	.book-header {
 		display: flex;
-		gap: 2rem;
 		align-items: flex-start;
 		margin-bottom: 2.5rem;
 		padding-bottom: 1.75rem;
 		border-bottom: 1px solid var(--border);
 	}
+	.book-cover-wrap { margin-right: 2rem; }
 	.book-header h1 {
 		margin: 0.25rem 0 0.3rem;
 		font-size: 2.15rem;
@@ -422,14 +422,14 @@ const isBook = category === 'Books';
 	}
 	.book-cover-shadow {
 		position: absolute;
-		inset: 6px -6px -8px -6px;
+		top: 6px; right: -6px; bottom: -8px; left: -6px;
 		background: rgba(0,0,0,0.35);
 		filter: blur(14px);
 		border-radius: 4px;
 		opacity: 0.7;
 		transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
 	}
-	.book-cover-pages { position: absolute; inset: 0; border-radius: 3px; }
+	.book-cover-pages { position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: 3px; }
 	.book-cover-page {
 		position: absolute;
 		background: #1a1a1a;
@@ -437,9 +437,9 @@ const isBook = category === 'Books';
 		border-radius: 3px;
 		transition: transform 500ms cubic-bezier(0.2, 0.9, 0.2, 1);
 	}
-	.book-cover-page:nth-child(1) { inset: 2px 1px 2px auto; width: 100%; }
-	.book-cover-page:nth-child(2) { inset: 4px 3px 4px auto; width: 100%; }
-	.book-cover-page:nth-child(3) { inset: 6px 5px 6px auto; width: 100%; }
+	.book-cover-page:nth-child(1) { top: 2px; right: 1px; bottom: 2px; left: auto; width: 100%; }
+	.book-cover-page:nth-child(2) { top: 4px; right: 3px; bottom: 4px; left: auto; width: 100%; }
+	.book-cover-page:nth-child(3) { top: 6px; right: 5px; bottom: 6px; left: auto; width: 100%; }
 	.book-cover-front {
 		position: relative;
 		transform-origin: left center;
@@ -464,11 +464,11 @@ const isBook = category === 'Books';
 	.meta {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
 		flex-wrap: wrap;
 		color: var(--text-secondary);
 		font-size: 0.85rem;
 	}
+	.meta > * { margin-right: 0.5rem; }
 	.dot { opacity: 0.4; }
 	.updated { font-style: italic; }
 
@@ -496,7 +496,7 @@ const isBook = category === 'Books';
 		.book-header {
 			display: grid;
 			grid-template-columns: 1fr;
-			gap: 1.25rem;
+			grid-row-gap: 1.25rem;
 			padding: 1.5rem 1.1rem 1.6rem;
 			border: 1px solid rgba(255,255,255,0.06);
 			border-radius: 18px;
@@ -510,7 +510,7 @@ const isBook = category === 'Books';
 			margin: 0 auto;
 		}
 		.book-cover-shadow {
-			inset: 8px -8px -12px -8px;
+			top: 8px; right: -8px; bottom: -12px; left: -8px;
 			filter: blur(16px);
 			opacity: 0.78;
 		}
@@ -526,11 +526,11 @@ const isBook = category === 'Books';
 		}
 		.meta {
 			justify-content: flex-start;
-			gap: 0.35rem 0.5rem;
 			font-size: 0.78rem;
 			letter-spacing: 0.02em;
 			text-transform: uppercase;
 		}
+		.meta > * { margin-right: 0.5rem; margin-bottom: 0.35rem; }
 		.book-header h1 {
 			margin-top: 0.45rem;
 			font-size: 1.72rem;
