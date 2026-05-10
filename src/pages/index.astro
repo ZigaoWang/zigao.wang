@@ -36,7 +36,7 @@ const posts = (await getCollection('blog')).sort(
 			{posts.length > 0 && (
 				<div class="post-list">
 					{posts.map((post) => {
-						const isBook = post.data.category === 'Book Notes';
+						const isBook = post.data.category === 'Books';
 						return (
 							<a href={`/blog/${post.id}/`} class="card">
 								{post.data.heroImage && (
