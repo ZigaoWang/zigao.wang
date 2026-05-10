@@ -94,6 +94,12 @@ const isBook = category === 'Books';
 							))}
 						</div>
 					)}
+					<div class="share">
+						<button class="share-btn" id="share-btn">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 10l4-4M10 10V6H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="1" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/></svg>
+							<span id="share-label">Share</span>
+						</button>
+					</div>
 				</article>
 			</main>
 		</div>
@@ -115,6 +121,24 @@ const isBook = category === 'Books';
 
 		<Footer />
 		<Lightbox />
+
+		<script>
+			const shareBtn = document.getElementById('share-btn');
+			const shareLabel = document.getElementById('share-label');
+			if (shareBtn && shareLabel) {
+				shareBtn.addEventListener('click', async () => {
+					const url = window.location.href;
+					const title = document.title;
+					if (navigator.share) {
+						try { await navigator.share({ title, url }); } catch {}
+					} else {
+						await navigator.clipboard.writeText(url);
+						shareLabel.textContent = 'Copied!';
+						setTimeout(() => { shareLabel.textContent = 'Share'; }, 2000);
+					}
+				});
+			}
+		</script>
 
 		<script>
 			const prose = document.getElementById('prose-content');
@@ -500,6 +524,25 @@ const isBook = category === 'Books';
 		padding: 0.25rem 0.6rem;
 		border-radius: 4px;
 	}
+
+	.share {
+		margin-top: 1.5rem;
+	}
+	.share-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid var(--border);
+		border-radius: 6px;
+		background: none;
+		color: var(--text-secondary);
+		font-size: 0.82rem;
+		font-family: inherit;
+		cursor: pointer;
+		transition: color 0.15s, border-color 0.15s;
+	}
+	.share-btn > * + * { margin-left: 0.4rem; }
+	.share-btn:hover { color: var(--text); border-color: var(--text-secondary); }
 
 	.prose { line-height: 1.8; font-size: 1rem; }
 	.prose :global(h2) { margin-top: 2.5rem; margin-bottom: 0.6rem; scroll-margin-top: 5rem; }
