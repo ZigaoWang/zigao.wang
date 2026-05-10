@@ -22,6 +22,12 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<h1>Posts</h1>
+			<div class="filters" id="filters">
+				<button class="filter active" data-filter="all">All</button>
+				<button class="filter" data-filter="Books">Books</button>
+				<button class="filter" data-filter="Tech">Tech</button>
+				<button class="filter" data-filter="Life">Life</button>
+			</div>
 			<section>
 				{posts.length === 0 && <p class="empty">Nothing here yet.</p>}
 				<div class="post-list">
@@ -29,7 +35,7 @@ const posts = (await getCollection('blog')).sort(
 						const isBook = post.data.category === 'Books';
 						const readTime = Math.max(1, Math.round(post.body.split(/\s+/).length / 200));
 						return (
-							<a href={`/blog/${post.id}/`} class="card">
+							<a href={`/blog/${post.id}/`} class="card" data-category={post.data.category}>
 								{post.data.heroImage && (
 									isBook ? (
 										<div class="book-cover">
@@ -74,11 +80,50 @@ const posts = (await getCollection('blog')).sort(
 			</section>
 		</main>
 		<Footer />
+
+		<script>
+			const filters = document.querySelectorAll<HTMLButtonElement>('.filter');
+			const cards = document.querySelectorAll<HTMLElement>('.card');
+
+			filters.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					filters.forEach((b) => b.classList.remove('active'));
+					btn.classList.add('active');
+					const cat = btn.dataset.filter;
+					cards.forEach((card) => {
+						if (cat === 'all' || card.dataset.category === cat) {
+							card.style.display = '';
+						} else {
+							card.style.display = 'none';
+						}
+					});
+				});
+			});
+		</script>
 	</body>
 </html>
 
 <style>
 	h1 { margin-bottom: 1.5rem; }
+	.filters {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 1.25rem;
+	}
+	.filters > * { margin-right: 0.5rem; margin-bottom: 0.5rem; }
+	.filter {
+		padding: 0.35rem 0.85rem;
+		border-radius: 6px;
+		border: 1px solid var(--border);
+		background: none;
+		color: var(--text-secondary);
+		font-size: 0.82rem;
+		font-family: inherit;
+		cursor: pointer;
+		transition: background 0.15s, color 0.15s, border-color 0.15s;
+	}
+	.filter:hover { color: var(--text); border-color: var(--text-secondary); }
+	.filter.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 	.post-list {
 		display: flex;
 		flex-direction: column;
