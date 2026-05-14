@@ -51,12 +51,11 @@ const isBook = category === 'Books';
 							</div>
 							<div class="book-meta">
 								<div class="meta">
-									{category && <span>{category}</span>}
-									<span class="dot">&middot;</span>
-									<FormattedDate date={pubDate} />
-									{readTime && (
-										<span>&middot; {readTime} min read</span>
-									)}
+									<span>
+										{category && <>{category} &middot; </>}
+										<FormattedDate date={pubDate} />
+										{readTime && <> &middot; {readTime} min read</>}
+									</span>
 								</div>
 								<h1>{title}</h1>
 								{author && <p class="author">by {author}</p>}
@@ -67,12 +66,11 @@ const isBook = category === 'Books';
 					) : (
 						<header class="post-header">
 							<div class="meta">
-								{category && <span>{category}</span>}
-								{category && <span class="dot">&middot;</span>}
-								<FormattedDate date={pubDate} />
-								{readTime && (
-									<span>&middot; {readTime} min read</span>
-								)}
+								<span>
+									{category && <>{category} &middot; </>}
+									<FormattedDate date={pubDate} />
+									{readTime && <> &middot; {readTime} min read</>}
+								</span>
 								{updatedDate && (
 									<span class="updated">
 										&middot; Updated <FormattedDate date={updatedDate} />
