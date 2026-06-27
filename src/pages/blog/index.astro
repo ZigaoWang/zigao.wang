@@ -6,6 +6,7 @@ import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import StarRating from '../../components/StarRating.astro';
+import { getReadTime } from '../../utils/readTime';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
@@ -33,7 +34,7 @@ const posts = (await getCollection('blog')).sort(
 				<div class="post-list">
 					{posts.map((post) => {
 						const isBook = post.data.category === 'Books';
-						const readTime = Math.max(1, Math.round(post.body.split(/\s+/).length / 200));
+						const readTime = getReadTime(post.body);
 						return (
 							<a href={`/blog/${post.id}/`} class="card" data-category={post.data.category}>
 								{post.data.heroImage && (
