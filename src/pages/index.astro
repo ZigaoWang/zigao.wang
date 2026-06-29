@@ -9,90 +9,160 @@ import StarRating from '../components/StarRating.astro';
 import { getReadTime } from '../utils/readTime';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const latestPosts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
+
+const projects = [
+	{ name: 'z1.chat', url: 'https://z1.chat', desc: 'Multi-model AI chat, pay-as-you-go.', src: 'https://github.com/ZigaoWang/z1.chat', type: 'Web' },
+	{ name: 'Zap Notes', url: 'https://apps.apple.com/us/app/zap-notes/id6740298881', desc: 'AI note-taking.', src: 'https://github.com/ZigaoWang/ZapNotesApp', type: 'iOS' },
+	{ name: 'Zap Know AI', url: 'https://apps.apple.com/us/app/zap-know-ai/id6745419831', desc: 'Research assistant backed by real papers.', src: 'https://github.com/ZigaoWang/ZapKnowAI-iOS', type: 'iOS' },
+	{ name: 'Go or No', url: 'https://apps.apple.com/us/app/go-or-no/id6744859953', desc: 'AR navigation for the visually impaired.', src: 'https://github.com/ZigaoWang/go-or-no', type: 'iOS' },
+	{ name: 'Out Loud', url: 'https://out-loud.app/', desc: 'Voice recording with live transcription.', src: 'https://github.com/ZigaoWang/out-loud-app', type: 'iOS' },
+	{ name: 'AvoidXray', url: 'https://avoidxray.com/', desc: 'A community for film photographers.', src: 'https://github.com/ZigaoWang/avoidxray.com', type: 'Web' },
+];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} — Student Developer & Maker in Shanghai`} description={SITE_DESCRIPTION} image="/bg.jpg" />
 	</head>
 	<body>
 		<Header />
+
 		<div class="hero">
 			<div class="hero-overlay"></div>
 			<div class="hero-fade"></div>
 			<div class="hero-content">
-				<h1>Zigao's Blog</h1>
-				<p>
-					I'm a high school student who builds things with code. This is where I write
-					about indie apps, talks I attend, books I'm reading, and whatever else I find
-					interesting.
-				</p>
+				<div class="hero-text">
+					<h1>Zigao Wang</h1>
+					<p class="pron">
+						<span>zuh-GOW WONG</span>
+						<button class="play-btn" id="play-pron" aria-label="Play name pronunciation">
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="currentColor"/></svg>
+						</button>
+					</p>
+					<p class="tagline">Student developer and maker in Shanghai.</p>
+				</div>
+				<img class="profile-pic" src="/profile.png" alt="Zigao Wang" width="140" height="140" />
 			</div>
 		</div>
+		<audio id="pron-audio" src="/pronunciation.mp3" preload="none"></audio>
+
 		<main>
-			{posts.length > 0 && (
-				<div class="post-list">
-					{posts.map((post) => {
-						const isBook = post.data.category === 'Books';
-						const readTime = getReadTime(post.body);
-						return (
-							<a href={`/blog/${post.id}/`} class="card">
-								{post.data.heroImage && (
-									isBook ? (
-										<div class="book-cover">
-											<div class="book-shadow"></div>
-											<div class="book-pages">
-												<div class="book-page"></div>
-												<div class="book-page"></div>
-												<div class="book-page"></div>
-											</div>
-											<div class="book-front">
-												<Image src={post.data.heroImage} alt={post.data.title} width={200} height={300} />
-											</div>
-										</div>
-									) : (
-										<div class="thumb">
-											<Image src={post.data.heroImage} alt="" width={320} height={200} />
-										</div>
-									)
-								)}
-								<div class="body">
-									<h3>{post.data.title}</h3>
-									{isBook && post.data.author && <p class="author">by {post.data.author}</p>}
-									<p class="desc">{post.data.description}</p>
-									<div class="foot">
-										{post.data.category && <span class="cat">{post.data.category}</span>}
-										<span class="dot">&middot;</span>
-										<FormattedDate date={post.data.pubDate} />
-										<span class="dot">&middot;</span>
-										<span>{readTime} min</span>
-										{post.data.rating && (
-											<span class="rating-wrap">
-												<span class="dot">&middot;</span>
-												<StarRating rating={post.data.rating} size={14} />
-											</span>
-										)}
-									</div>
-								</div>
+			<section class="section">
+				<h2>Projects</h2>
+				<ul class="proj-list">
+					{projects.map((p) => (
+						<li>
+							<span class="head">
+								<a href={p.url} target="_blank" rel="noreferrer" class="name">{p.name}</a>
+								<span class="type">{p.type}</span>
+							</span>
+							<span class="desc">{p.desc}</span>
+							<a href={p.src} target="_blank" rel="noreferrer" class="src" aria-label={`${p.name} source on GitHub`}>
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.6.5 12c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.9 7.9-10.8C23.5 5.6 18.3.5 12 .5z"/></svg>
 							</a>
-						);
-					})}
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="section">
+				<h2>Recent writing</h2>
+				<div class="writing-wrap">
+					<div class="post-list">
+						{latestPosts.map((post) => {
+							const isBook = post.data.category === 'Books';
+							const readTime = getReadTime(post.body);
+							return (
+								<a href={`/blog/${post.id}/`} class="card">
+									{post.data.heroImage && (
+										isBook ? (
+											<div class="book-cover">
+												<div class="book-shadow"></div>
+												<div class="book-pages">
+													<div class="book-page"></div>
+													<div class="book-page"></div>
+													<div class="book-page"></div>
+												</div>
+												<div class="book-front">
+													<Image src={post.data.heroImage} alt={post.data.title} width={200} height={300} />
+												</div>
+											</div>
+										) : (
+											<div class="thumb">
+												<Image src={post.data.heroImage} alt="" width={320} height={200} />
+											</div>
+										)
+									)}
+									<div class="body">
+										<h3>{post.data.title}</h3>
+										{isBook && post.data.author && <p class="author">by {post.data.author}</p>}
+										<p class="desc">{post.data.description}</p>
+										<div class="foot">
+											{post.data.category && <span class="cat">{post.data.category}</span>}
+											<span class="dot">&middot;</span>
+											<FormattedDate date={post.data.pubDate} />
+											<span class="dot">&middot;</span>
+											<span>{readTime} min</span>
+											{post.data.rating && (
+												<span class="rating-wrap">
+													<span class="dot">&middot;</span>
+													<StarRating rating={post.data.rating} size={14} />
+												</span>
+											)}
+										</div>
+									</div>
+								</a>
+							);
+						})}
+					</div>
+					<div class="fade-mask"></div>
 				</div>
-			)}
+				<a href="/blog" class="read-more">Read all posts <span aria-hidden="true">→</span></a>
+			</section>
+
+			<section class="section">
+				<h2>Contact</h2>
+				<div class="social-row">
+					<a href="https://github.com/ZigaoWang" target="_blank" rel="noreferrer" class="social">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.6.5 12c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.9 7.9-10.8C23.5 5.6 18.3.5 12 .5z"/></svg>
+						<span>GitHub</span>
+					</a>
+					<a href="https://x.com/zigaow" target="_blank" rel="noreferrer" class="social">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+						<span>Twitter</span>
+					</a>
+					<a href="https://www.instagram.com/zigaowang24/" target="_blank" rel="noreferrer" class="social">
+						<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+						<span>Instagram</span>
+					</a>
+					<a href="mailto:a@zigao.wang" class="social">
+						<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="0.5"/><path d="M2.5 6l9.5 7 9.5-7"/></svg>
+						<span>Email</span>
+					</a>
+				</div>
+			</section>
 		</main>
+
 		<Footer />
+
+		<script is:inline>
+			document.getElementById('play-pron')?.addEventListener('click', () => {
+				const a = document.getElementById('pron-audio');
+				if (a) { a.currentTime = 0; a.play(); }
+			});
+		</script>
 	</body>
 </html>
 
 <style>
 	.hero {
 		position: relative;
-		height: 480px;
-		background: url('/bg.jpg') center 35% / cover no-repeat;
+		height: 520px;
+		background: url('/bg.jpg') center 38% / cover no-repeat;
 		display: flex;
 		align-items: flex-end;
 		overflow: hidden;
@@ -101,8 +171,8 @@ const posts = (await getCollection('blog')).sort(
 		position: absolute;
 		top: 0; right: 0; bottom: 0; left: 0;
 		background:
-			radial-gradient(ellipse at 30% 90%, rgba(0,0,0,0.5) 0%, transparent 70%),
-			linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
+			radial-gradient(ellipse at 25% 95%, rgba(0,0,0,0.55) 0%, transparent 65%),
+			linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.5) 100%);
 	}
 	.hero-fade {
 		position: absolute;
@@ -118,34 +188,211 @@ const posts = (await getCollection('blog')).sort(
 		margin: 0 auto;
 		padding: 0 var(--px) 2.5rem;
 		width: 100%;
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+	.hero-text { flex: 1; min-width: 0; }
+	.profile-pic {
+		width: 140px;
+		height: 140px;
+		border-radius: 10px;
+		object-fit: cover;
+		box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+		flex-shrink: 0;
+		display: block;
 	}
 	.hero-content h1 {
 		color: #fff;
-		font-size: 2.6rem;
-		margin-bottom: 0.3rem;
-		letter-spacing: -0.03em;
+		font-family: var(--font-serif);
+		font-weight: 400;
+		font-size: 2.9rem;
+		line-height: 1.1;
+		letter-spacing: -0.025em;
+		margin: 0 0 0.45rem;
 		text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 	}
-	.hero-content p {
-		color: rgba(255,255,255,0.75);
-		font-size: 0.95rem;
-		line-height: 1.7;
-		max-width: 440px;
-		margin: 0;
-		text-shadow: 0 1px 6px rgba(0,0,0,0.3);
-	}
-
-	main { padding: 2.5rem var(--px) 2.5rem; }
-
-	.post-list {
+	.pron {
 		display: flex;
-		flex-direction: column;
+		align-items: center;
+		gap: 0.4rem;
+		color: rgba(255,255,255,0.78);
+		font-size: 0.85rem;
+		margin: 0 0 0.85rem;
+		text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 	}
-	.post-list > * + * {
-		margin-top: 1rem;
+	.play-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 22px;
+		height: 22px;
+		padding: 0;
+		background: none;
+		border: none;
+		color: rgba(255,255,255,0.7);
+		cursor: pointer;
+	}
+	.play-btn:hover { color: #fff; }
+	.play-btn svg { width: 14px; height: 14px; }
+	.tagline {
+		color: rgba(255,255,255,0.92);
+		font-size: 1.05rem;
+		max-width: 480px;
+		margin: 0;
+		text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+		line-height: 1.55;
 	}
 
-	/* ── Unified card ── */
+	main { padding-top: 2.25rem; padding-bottom: 3rem; }
+
+	.section {
+		padding-top: 2.5rem;
+		border-top: 1px solid var(--border);
+	}
+	.section:first-child {
+		padding-top: 0;
+		border-top: none;
+	}
+	.section + .section { margin-top: 2.5rem; }
+
+	h2 {
+		font-family: var(--font-serif);
+		font-weight: 400;
+		font-size: 1.5rem;
+		letter-spacing: -0.015em;
+		margin: 0 0 1.1rem;
+	}
+
+	.sect-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 1.1rem;
+	}
+	.sect-head h2 { margin: 0; }
+	.more { font-size: 0.92rem; color: var(--text-secondary); }
+	.more:hover { color: var(--text); }
+
+	.proj-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: max-content max-content 1fr max-content;
+		column-gap: 1.5rem;
+		row-gap: 0.6rem;
+		align-items: baseline;
+		font-size: 1rem;
+		color: var(--text);
+	}
+	.proj-list li { display: contents; }
+	.proj-list .head { display: contents; }
+	.proj-list .name {
+		color: var(--text);
+		font-weight: 500;
+		text-decoration: none;
+	}
+	.proj-list .name:hover { color: var(--text-secondary); }
+	.proj-list .type {
+		color: var(--text-secondary);
+		font-size: 0.82rem;
+		font-variant-numeric: tabular-nums;
+	}
+	.proj-list .desc { color: var(--text-secondary); }
+	.proj-list .src {
+		display: inline-flex;
+		align-items: center;
+		color: var(--text-secondary);
+		line-height: 0;
+	}
+	.proj-list .src:hover { color: var(--text); }
+	.proj-list .src svg { width: 16px; height: 16px; display: block; }
+
+	@media (max-width: 600px) {
+		.proj-list { display: block; }
+		.proj-list li {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			grid-template-rows: auto auto;
+			column-gap: 0.85rem;
+			row-gap: 0.15rem;
+			padding: 0.65rem 0;
+			align-items: baseline;
+		}
+		.proj-list .head {
+			display: flex;
+			align-items: baseline;
+			gap: 0.5rem;
+			grid-column: 1;
+			grid-row: 1;
+		}
+		.proj-list .type { font-size: 0.8rem; }
+		.proj-list .desc {
+			grid-column: 1;
+			grid-row: 2;
+			font-size: 0.9rem;
+			color: var(--text-secondary);
+		}
+		.proj-list .src {
+			grid-column: 2;
+			grid-row: 1 / 3;
+			align-self: center;
+		}
+		.proj-list .src svg { width: 22px; height: 22px; }
+	}
+
+	.writing-wrap {
+		position: relative;
+		max-height: 720px;
+		overflow: hidden;
+	}
+	.fade-mask {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 220px;
+		background: linear-gradient(to bottom, rgba(12,12,12,0) 0%, rgba(12,12,12,0.85) 65%, var(--bg) 100%);
+		pointer-events: none;
+	}
+	.read-more {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		padding: 0.65rem 1rem;
+		margin-top: 0.25rem;
+		font-family: var(--font-sans);
+		font-size: 0.9rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+	}
+	.read-more:hover {
+		color: var(--text);
+	}
+
+	.social-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem 1.6rem;
+		align-items: center;
+	}
+	.social {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-size: 0.95rem;
+	}
+	.social:hover { color: var(--text); }
+	.social svg { width: 18px; height: 18px; display: block; flex-shrink: 0; }
+
+	.post-list { display: flex; flex-direction: column; }
+	.post-list > * + * { margin-top: 1rem; }
 	.card {
 		display: flex;
 		align-items: flex-start;
@@ -161,8 +408,6 @@ const posts = (await getCollection('blog')).sort(
 		background: var(--surface-hover);
 		border-color: #2a2a2a;
 	}
-
-	/* ── Landscape thumbnail ── */
 	.thumb {
 		flex-shrink: 0;
 		width: 160px;
@@ -177,8 +422,6 @@ const posts = (await getCollection('blog')).sort(
 		object-fit: cover;
 		border-radius: 8px;
 	}
-
-	/* ── 3D Book cover ── */
 	.book-cover {
 		position: relative;
 		flex-shrink: 0;
@@ -200,11 +443,7 @@ const posts = (await getCollection('blog')).sort(
 		opacity: 0.8;
 		filter: blur(14px);
 	}
-	.book-pages {
-		position: absolute;
-		top: 0; right: 0; bottom: 0; left: 0;
-		border-radius: 2px;
-	}
+	.book-pages { position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: 2px; }
 	.book-page {
 		position: absolute;
 		background: #1a1a1a;
@@ -227,25 +466,18 @@ const posts = (await getCollection('blog')).sort(
 		transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
 		box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 	}
-	.card:hover .book-front {
-		transform: rotateY(-18deg);
-	}
+	.card:hover .book-front { transform: rotateY(-18deg); }
 	.book-front :global(img) {
 		display: block;
 		width: 90px;
 		height: auto;
 		border-radius: 2px;
 	}
-
-	/* ── Card body ── */
-	.body {
-		flex: 1;
-		min-width: 0;
-		padding-top: 0.1rem;
-	}
+	.body { flex: 1; min-width: 0; padding-top: 0.1rem; }
 	.card h3 {
-		font-size: 1.1rem;
-		margin: 0 0 0.25rem;
+		font-family: var(--font-serif);
+		font-size: 1.15rem;
+		margin: 0 0 0.3rem;
 		font-weight: 400;
 		line-height: 1.35;
 	}
@@ -254,9 +486,9 @@ const posts = (await getCollection('blog')).sort(
 		color: var(--text-secondary);
 		margin: 0 0 0.4rem;
 	}
-	.desc {
+	.card .desc {
 		color: var(--text-secondary);
-		font-size: 0.88rem;
+		font-size: 0.9rem;
 		line-height: 1.55;
 		margin: 0 0 0.5rem;
 		display: -webkit-box;
@@ -275,22 +507,24 @@ const posts = (await getCollection('blog')).sort(
 	.cat { color: var(--text-secondary); }
 	.dot { opacity: 0.4; }
 
-	@media (max-width: 600px) {
-		.hero { height: 380px; }
-		.hero-content h1 { font-size: 2.1rem; }
-		.hero-fade { height: 100px; }
+	@media (max-width: 700px) {
+		.hero { height: 440px; }
+		.hero-content { padding-bottom: 1.75rem; gap: 1rem; align-items: flex-end; }
+		.hero-content h1 { font-size: 2rem; }
+		.tagline { font-size: 0.98rem; }
+		.hero-fade { height: 110px; }
+		.profile-pic {
+			width: 96px;
+			height: 96px;
+			border-radius: 8px;
+			box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+		}
 		.card { padding: 1rem; }
-		.thumb { margin-right: 1rem; }
-		.book-cover { margin-right: 1rem; }
-		.thumb { width: 110px; height: 70px; }
-		.book-cover { width: 70px; }
+		.thumb { width: 110px; height: 70px; margin-right: 1rem; }
+		.book-cover { width: 70px; margin-right: 1rem; }
 		.book-front :global(img) { width: 70px; }
-		.card h3 { font-size: 0.95rem; }
-		.desc { font-size: 0.82rem; -webkit-line-clamp: 1; }
+		.card h3 { font-size: 0.98rem; }
+		.card .desc { -webkit-line-clamp: 1; font-size: 0.84rem; }
 		.foot { font-size: 0.72rem; }
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.book-shadow, .book-front, .book-page { transition: none; }
 	}
 </style>

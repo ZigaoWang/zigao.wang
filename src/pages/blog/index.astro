@@ -7,7 +7,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import StarRating from '../../components/StarRating.astro';
 import { getReadTime } from '../../utils/readTime';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { BLOG_DESCRIPTION, BLOG_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -17,7 +17,7 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Posts - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead title={BLOG_TITLE} description={BLOG_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />

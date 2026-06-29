@@ -3,23 +3,66 @@ const today = new Date();
 ---
 
 <footer>
-	<span>&copy; {today.getFullYear()} <a href="https://zigao.wang" target="_blank" rel="noreferrer">Zigao Wang</a></span>
+	<div class="meta">
+		<span>&copy; {today.getFullYear()} Zigao Wang</span>
+		<span class="sep" aria-hidden="true">·</span>
+		<a href="https://github.com/ZigaoWang/blog.zigao.wang" target="_blank" rel="noreferrer">Source on GitHub</a>
+	</div>
+	<div class="flag-strip">
+		<a href="https://info.flagcounter.com/FHXI" target="_blank" rel="noreferrer" aria-label="Visitor counter by country">
+			<img class="flag-desktop" src="https://s01.flagcounter.com/count/FHXI/bg_0c0c0c/txt_888888/border_1F1F1F/columns_6/maxflags_24/viewers_Hello+from/labels_1/pageviews_1/flags_0/percent_0/" alt="Visitors by country" />
+			<img class="flag-mobile" src="https://s01.flagcounter.com/count/FHXI/bg_0c0c0c/txt_888888/border_1F1F1F/columns_4/maxflags_12/viewers_Hello+from/labels_1/pageviews_1/flags_0/percent_0/" alt="Visitors by country" />
+		</a>
+	</div>
 </footer>
 <style>
 	footer {
 		max-width: var(--max-w);
 		margin: 0 auto;
-		padding: 2rem var(--px) 2rem;
+		padding: 2.5rem var(--px) 2.5rem;
 		border-top: 1px solid var(--border);
 		text-align: center;
-		font-size: 0.75rem;
-		color: var(--text-secondary);
 	}
-	a {
-		color: inherit;
+	.meta {
+		font-size: 0.85rem;
+		color: var(--text-secondary);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.6rem;
+		flex-wrap: wrap;
+	}
+	.meta a {
+		color: var(--text);
 		text-decoration: none;
 	}
-	a:hover {
-		text-decoration: underline;
+	.meta a:hover { color: var(--text-secondary); }
+	.sep { opacity: 0.5; }
+
+	.flag-strip {
+		display: flex;
+		justify-content: center;
+		margin-top: 3.5rem;
+	}
+	.flag-strip a {
+		display: block;
+		width: 100%;
+		max-width: 460px;
+		line-height: 0;
+	}
+	.flag-strip img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 0;
+	}
+	.flag-mobile { display: none !important; }
+
+	@media (max-width: 600px) {
+		footer { padding: 2rem var(--px) 2rem; }
+		.flag-strip { margin-top: 2.5rem; }
+		.flag-strip a { max-width: 100%; }
+		.flag-desktop { display: none !important; }
+		.flag-mobile { display: block !important; }
 	}
 </style>
