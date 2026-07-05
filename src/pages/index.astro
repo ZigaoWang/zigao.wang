@@ -4,7 +4,6 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
 import StarRating from '../components/StarRating.astro';
 import { getReadTime } from '../utils/readTime';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
@@ -21,6 +20,12 @@ const projects = [
 	{ name: 'Out Loud', url: 'https://out-loud.app/', desc: 'Voice recording with live transcription.', src: 'https://github.com/ZigaoWang/out-loud-app', type: 'iOS' },
 	{ name: 'AvoidXray', url: 'https://avoidxray.com/', desc: 'A community for film photographers.', src: 'https://github.com/ZigaoWang/avoidxray.com', type: 'Web' },
 ];
+
+const gearPreview = [
+	{ name: 'Canon AE-1 Program', meta: '35mm SLR', img: '/cameras/canon-ae1.webp' },
+	{ name: 'Tenor saxophone', meta: 'Jazz band', img: '/gear/tenor.webp' },
+	{ name: 'AT-LP60XBTa', meta: 'Vinyl turntable', img: '/gear/audio-technica-at-lp60xbt.webp' },
+];
 ---
 
 <!doctype html>
@@ -29,8 +34,6 @@ const projects = [
 		<BaseHead title={`${SITE_TITLE} — Student Developer & Maker in Shanghai`} description={SITE_DESCRIPTION} image="/bg.jpg" />
 	</head>
 	<body>
-		<Header />
-
 		<div class="hero">
 			<div class="hero-overlay"></div>
 			<div class="hero-fade"></div>
@@ -122,6 +125,25 @@ const projects = [
 					<div class="fade-mask"></div>
 				</div>
 				<a href="/blog" class="read-more">Read all posts <span aria-hidden="true">→</span></a>
+			</section>
+
+			<section class="section">
+				<h2>Interests</h2>
+				<div class="gear-wrap">
+					<div class="gear-preview">
+						{gearPreview.map((g) => (
+							<div class="g-card">
+								<div class="g-photo"><img src={g.img} alt={g.name} loading="lazy" /></div>
+								<div class="g-meta">
+									<h3>{g.name}</h3>
+									<p>{g.meta}</p>
+								</div>
+							</div>
+						))}
+					</div>
+					<div class="fade-mask"></div>
+				</div>
+				<a href="/interests" class="read-more">Explore interests <span aria-hidden="true">→</span></a>
 			</section>
 
 			<section class="section">
@@ -380,6 +402,63 @@ const projects = [
 		gap: 0.4rem 1.6rem;
 		align-items: center;
 	}
+	.gear-wrap {
+		position: relative;
+		max-height: 220px;
+		overflow: hidden;
+	}
+	.gear-wrap .fade-mask {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 90px;
+		background: linear-gradient(to bottom, rgba(12,12,12,0) 0%, rgba(12,12,12,0.85) 65%, var(--bg) 100%);
+		pointer-events: none;
+	}
+	.gear-preview {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-bottom: 0.25rem;
+	}
+	.gear-preview .g-card {
+		display: flex;
+		flex-direction: column;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		color: var(--text);
+	}
+	.gear-preview .g-photo {
+		height: 160px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+	}
+	.gear-preview .g-photo img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		border-radius: 0;
+	}
+	.gear-preview .g-meta {
+		padding: 0.75rem 0.9rem 0.85rem;
+		border-top: 1px solid var(--border);
+	}
+	.gear-preview .g-meta h3 {
+		font-family: var(--font-serif);
+		font-size: 0.95rem;
+		font-weight: 400;
+		margin: 0 0 0.15rem;
+		line-height: 1.3;
+	}
+	.gear-preview .g-meta p {
+		font-size: 0.8rem;
+		color: var(--text-secondary);
+		margin: 0;
+		line-height: 1.4;
+	}
 	.social {
 		display: inline-flex;
 		align-items: center;
@@ -526,5 +605,23 @@ const projects = [
 		.card h3 { font-size: 0.98rem; }
 		.card .desc { -webkit-line-clamp: 1; font-size: 0.84rem; }
 		.foot { font-size: 0.72rem; }
+		.gear-wrap { max-height: 320px; }
+		.gear-preview { grid-template-columns: 1fr; gap: 0.65rem; }
+		.gear-preview .g-card { flex-direction: row; align-items: stretch; }
+		.gear-preview .g-photo {
+			height: auto;
+			width: 100px;
+			flex-shrink: 0;
+			padding: 0.65rem;
+		}
+		.gear-preview .g-meta {
+			border-top: none;
+			border-left: 1px solid var(--border);
+			padding: 0.7rem 0.85rem;
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
 	}
 </style>

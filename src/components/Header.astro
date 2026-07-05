@@ -2,6 +2,7 @@
 import { SITE_TITLE } from '../consts';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = pathname === '/' || pathname === '';
 
 const links = [
 	{ label: 'Home', href: '/' },
@@ -19,7 +20,7 @@ function isActive(href: string): boolean {
 
 <header>
 	<nav>
-		<a href="/" class="logo">{SITE_TITLE}</a>
+		{!isHome && <a href="/" class="logo">{SITE_TITLE}</a>}
 		<div class="links">
 			{links.map((l) => (
 				<a href={l.href} class:list={['nav-link', { active: isActive(l.href) }]}>{l.label}</a>
@@ -48,7 +49,7 @@ function isActive(href: string): boolean {
 		line-height: 1;
 	}
 	.logo:hover { opacity: 0.8; }
-	.links { display: flex; align-items: center; }
+	.links { display: flex; align-items: center; margin-left: auto; }
 	.links > * + * { margin-left: 0.15rem; }
 	.nav-link {
 		display: inline-block;
