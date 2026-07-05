@@ -4,7 +4,7 @@ const today = new Date();
 
 <footer>
 	<div class="meta">
-		<span>&copy; {today.getFullYear()} Zigao Wang</span>
+		<span>&copy; {today.getFullYear()} <span class="sig">Zigao Wang</span></span>
 		<span class="sep" aria-hidden="true">·</span>
 		<a href="https://github.com/ZigaoWang/blog.zigao.wang" target="_blank" rel="noreferrer">Source on GitHub</a>
 	</div>
@@ -31,6 +31,13 @@ const today = new Date();
 		align-items: center;
 		gap: 0.6rem;
 		flex-wrap: wrap;
+	}
+	.sig {
+		font-family: var(--font-hand);
+		font-size: 1.15rem;
+		color: var(--text);
+		margin-left: 0.15rem;
+		vertical-align: -1px;
 	}
 	.meta a {
 		color: var(--text);
