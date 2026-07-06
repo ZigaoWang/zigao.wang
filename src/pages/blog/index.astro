@@ -114,7 +114,7 @@ const posts = (await getCollection('blog')).sort(
 	.filters > * { margin-right: 0.5rem; margin-bottom: 0.5rem; }
 	.filter {
 		padding: 0.35rem 0.85rem;
-		border-radius: 6px;
+		border-radius: 0;
 		border: 1px solid var(--border);
 		background: none;
 		color: var(--text-secondary);
@@ -183,7 +183,7 @@ const posts = (await getCollection('blog')).sort(
 		top: 4px; right: -4px; bottom: -6px; left: -4px;
 		background: rgba(0,0,0,0.3);
 		filter: blur(10px);
-		border-radius: 4px;
+		border-radius: 0;
 		opacity: 0.6;
 		transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
 	}
@@ -195,13 +195,13 @@ const posts = (await getCollection('blog')).sort(
 	.book-pages {
 		position: absolute;
 		top: 0; right: 0; bottom: 0; left: 0;
-		border-radius: 2px;
+		border-radius: 0;
 	}
 	.book-page {
 		position: absolute;
 		background: #1a1a1a;
 		border: 1px solid rgba(255,255,255,0.04);
-		border-radius: 2px;
+		border-radius: 0;
 		transition: transform 500ms cubic-bezier(0.2, 0.9, 0.2, 1);
 	}
 	.book-page:nth-child(1) { top: 2px; right: 1px; bottom: 2px; left: auto; width: 100%; }
@@ -214,7 +214,7 @@ const posts = (await getCollection('blog')).sort(
 		position: relative;
 		transform-origin: left center;
 		transform-style: preserve-3d;
-		border-radius: 2px;
+		border-radius: 0;
 		overflow: hidden;
 		transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
 		box-shadow: 0 1px 3px rgba(0,0,0,0.2);
@@ -226,7 +226,7 @@ const posts = (await getCollection('blog')).sort(
 		display: block;
 		width: 90px;
 		height: auto;
-		border-radius: 2px;
+		border-radius: 0;
 	}
 
 	/* ── Card body ── */

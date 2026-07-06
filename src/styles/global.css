@@ -68,20 +68,20 @@ a:hover { text-decoration-color: var(--link); }
 
 p { margin-bottom: 1rem; }
 
-img { max-width: 100%; height: auto; border-radius: 8px; }
+img { max-width: 100%; height: auto; border-radius: 0; }
 
 code {
 	font-family: var(--font-mono);
 	padding: 2px 6px;
 	background: var(--code-bg);
 	border: 1px solid var(--border);
-	border-radius: 4px;
+	border-radius: 0;
 	font-size: 0.84em;
 }
 
 pre {
 	padding: 1.2rem;
-	border-radius: 8px;
+	border-radius: 0;
 	overflow-x: auto;
 	font-size: 0.85em;
 	border: 1px solid var(--border);
