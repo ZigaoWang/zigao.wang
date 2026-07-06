@@ -12,13 +12,32 @@ const latestPosts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 5);
 
-const projects = [
-	{ name: 'z1.chat', url: 'https://z1.chat', desc: 'Multi-model AI chat, pay-as-you-go.', src: 'https://github.com/ZigaoWang/z1.chat', type: 'Web' },
-	{ name: 'Zap Notes', url: 'https://apps.apple.com/us/app/zap-notes/id6740298881', desc: 'AI note-taking.', src: 'https://github.com/ZigaoWang/ZapNotesApp', type: 'iOS' },
-	{ name: 'Zap Know AI', url: 'https://apps.apple.com/us/app/zap-know-ai/id6745419831', desc: 'Research assistant backed by real papers.', src: 'https://github.com/ZigaoWang/ZapKnowAI-iOS', type: 'iOS' },
-	{ name: 'Go or No', url: 'https://apps.apple.com/us/app/go-or-no/id6744859953', desc: 'AR navigation for the visually impaired.', src: 'https://github.com/ZigaoWang/go-or-no', type: 'iOS' },
-	{ name: 'Out Loud', url: 'https://out-loud.app/', desc: 'Voice recording with live transcription.', src: 'https://github.com/ZigaoWang/out-loud-app', type: 'iOS' },
-	{ name: 'AvoidXray', url: 'https://avoidxray.com/', desc: 'A community for film photographers.', src: 'https://github.com/ZigaoWang/avoidxray.com', type: 'Web' },
+const featuredProjects = [
+	{
+		name: 'AvoidXray',
+		url: 'https://avoidxray.com',
+		src: 'https://github.com/ZigaoWang/avoidxray.com',
+		img: '/projects/avoidxray.webp',
+		imgPosition: 'top',
+		tagline: 'A community website for film photographers.',
+		detail: 'Browse and share full-res scans, sorted by camera and film stock, so you can see exactly what any film looks like before you shoot it.',
+	},
+	{
+		name: 'z1.chat',
+		url: 'https://z1.chat',
+		src: 'https://github.com/ZigaoWang/z1.chat',
+		img: '/projects/z1chat.webp',
+		imgPosition: 'top',
+		tagline: 'A full AI chat platform built from scratch.',
+		detail: 'Multiple models, cross-chat memory, web search, a sandbox that runs code, and artifacts that render HTML and diagrams. Pay-as-you-go, no subscription.',
+	},
+];
+
+const iosProjects = [
+	{ name: 'Zap Notes', url: 'https://apps.apple.com/us/app/zap-notes/id6740298881', urlLabel: 'App Store', desc: 'A multi-input AI note-taking app.', src: 'https://github.com/ZigaoWang/ZapNotesApp' },
+	{ name: 'Zap Know AI', url: 'https://apps.apple.com/us/app/zap-know-ai/id6745419831', urlLabel: 'App Store', desc: 'An AI research app backed by real papers.', src: 'https://github.com/ZigaoWang/ZapKnowAI-iOS' },
+	{ name: 'Go or No', url: 'https://apps.apple.com/us/app/go-or-no/id6744859953', urlLabel: 'App Store', desc: 'An AI-powered AR navigation app for visually impaired users.', src: 'https://github.com/ZigaoWang/go-or-no' },
+	{ name: 'Out Loud', url: 'https://out-loud.app/', urlLabel: 'Visit site', desc: 'A voice recording app with real-time transcription and AI analysis.', src: 'https://github.com/ZigaoWang/out-loud-app' },
 ];
 
 const gearPreview = [
@@ -56,17 +75,46 @@ const gearPreview = [
 		<main>
 			<section class="section">
 				<h2>Projects</h2>
+				<div class="proj-featured">
+					{featuredProjects.map((p) => (
+						<div class="feat-card">
+							<a class="feat-card-link" href={p.url} target="_blank" rel="noreferrer" aria-label={`Visit ${p.name}`}></a>
+							<div class="feat-img">
+								<img src={p.img} alt={`${p.name} screenshot`} loading="lazy" style={`object-position: ${p.imgPosition}`} />
+							</div>
+							<div class="feat-body">
+								<div class="feat-title-row">
+									<span class="feat-name">{p.name}</span>
+									<span class="feat-tag">Web</span>
+								</div>
+								<p class="feat-tagline">{p.tagline}</p>
+								<p class="feat-detail">{p.detail}</p>
+								<div class="feat-links">
+									<a href={p.url} target="_blank" rel="noreferrer" class="feat-visit">Visit site</a>
+									<a href={p.src} target="_blank" rel="noreferrer" class="feat-src" aria-label={`${p.name} source on GitHub`}>
+										<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.6.5 12c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.9 7.9-10.8C23.5 5.6 18.3.5 12 .5z"/></svg>
+										<span>source</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+
 				<ul class="proj-list">
-					{projects.map((p) => (
+					{iosProjects.map((p) => (
 						<li>
 							<span class="head">
-								<a href={p.url} target="_blank" rel="noreferrer" class="name">{p.name}</a>
-								<span class="type">{p.type}</span>
+								<span class="name">{p.name}</span>
+								<span class="type">iOS</span>
 							</span>
 							<span class="desc">{p.desc}</span>
-							<a href={p.src} target="_blank" rel="noreferrer" class="src" aria-label={`${p.name} source on GitHub`}>
-								<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.6.5 12c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.9 7.9-10.8C23.5 5.6 18.3.5 12 .5z"/></svg>
-							</a>
+							<span class="src-group">
+								<a href={p.url} target="_blank" rel="noreferrer" class="src-appstore">{p.urlLabel}</a>
+								<a href={p.src} target="_blank" rel="noreferrer" class="src" aria-label={`${p.name} source on GitHub`}>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.6.5 12c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.9 7.9-10.8C23.5 5.6 18.3.5 12 .5z"/></svg>
+								</a>
+							</span>
 						</li>
 					))}
 				</ul>
@@ -298,6 +346,114 @@ const gearPreview = [
 	.more { font-size: 0.92rem; color: var(--text-secondary); }
 	.more:hover { color: var(--text); }
 
+	.proj-featured {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-bottom: 2rem;
+	}
+	.feat-card {
+		background: var(--surface);
+		border: 1px solid var(--border);
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		transition: background 0.15s, border-color 0.15s;
+	}
+	.feat-card-link {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+	.feat-card:hover {
+		background: var(--surface-hover);
+		border-color: #2a2a2a;
+	}
+	.feat-img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		background: #111;
+		border-bottom: 1px solid var(--border);
+	}
+	.feat-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.feat-body {
+		padding: 1.1rem 1.25rem 1.15rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		flex: 1;
+	}
+	.feat-title-row {
+		display: flex;
+		align-items: baseline;
+		gap: 0.55rem;
+	}
+	.feat-name {
+		font-family: var(--font-serif);
+		font-size: 1.25rem;
+		font-weight: 400;
+		color: var(--text);
+	}
+	.feat-tag {
+		font-size: 0.75rem;
+		color: var(--text-secondary);
+		letter-spacing: 0.04em;
+	}
+	.feat-tagline {
+		font-size: 0.95rem;
+		font-weight: 500;
+		color: var(--text);
+		line-height: 1.45;
+		margin: 0;
+	}
+	.feat-detail {
+		font-size: 0.83rem;
+		color: var(--text-secondary);
+		line-height: 1.6;
+		margin: 0;
+	}
+	.feat-links {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-top: auto;
+		padding-top: 0.5rem;
+		position: relative;
+		z-index: 1;
+	}
+	.feat-visit {
+		display: inline-flex;
+		align-items: center;
+		font-size: 0.82rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+	}
+	.feat-visit:hover { color: var(--text); }
+	.feat-src {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		font-size: 0.82rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+	}
+	.feat-src:hover { color: var(--text); }
+	.feat-src svg { width: 14px; height: 14px; display: block; }
+
+	.proj-secondary-heading {
+		font-size: 0.8rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--text-secondary);
+		margin: 0 0 0.75rem;
+	}
+
 	.proj-list {
 		list-style: none;
 		padding: 0;
@@ -305,65 +461,81 @@ const gearPreview = [
 		display: grid;
 		grid-template-columns: max-content max-content 1fr max-content;
 		column-gap: 1.5rem;
-		row-gap: 0.6rem;
+		row-gap: 0.25rem;
 		align-items: baseline;
-		font-size: 1rem;
+		font-size: 0.9rem;
 		color: var(--text);
 	}
 	.proj-list li { display: contents; }
 	.proj-list .head { display: contents; }
-	.proj-list .name {
-		color: var(--text);
-		font-weight: 500;
-		text-decoration: none;
-	}
-	.proj-list .name:hover { color: var(--text-secondary); }
 	.proj-list .type {
 		color: var(--text-secondary);
 		font-size: 0.82rem;
 		font-variant-numeric: tabular-nums;
 	}
 	.proj-list .desc { color: var(--text-secondary); }
+	.proj-list .src-group {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		align-self: center;
+	}
+	.proj-list .name {
+		font-family: var(--font-serif);
+		font-weight: 400;
+		font-size: 1.15rem;
+		color: var(--text);
+		text-decoration: none;
+	}
+	.proj-list .src-appstore {
+		display: flex;
+		align-items: center;
+		font-size: 0.82rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.proj-list .src-appstore:hover { color: var(--text); }
 	.proj-list .src {
-		display: inline-flex;
+		display: flex;
 		align-items: center;
 		color: var(--text-secondary);
-		line-height: 0;
 	}
 	.proj-list .src:hover { color: var(--text); }
 	.proj-list .src svg { width: 16px; height: 16px; display: block; }
 
 	@media (max-width: 600px) {
-		.proj-list { display: block; }
+		.proj-featured { grid-template-columns: 1fr; }
+		.proj-list { display: flex; flex-direction: column; }
 		.proj-list li {
-			display: grid;
-			grid-template-columns: 1fr auto;
-			grid-template-rows: auto auto;
-			column-gap: 0.85rem;
-			row-gap: 0.15rem;
-			padding: 0.65rem 0;
-			align-items: baseline;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 0.15rem 0.6rem;
+			padding: 0.7rem 0;
 		}
 		.proj-list .head {
 			display: flex;
-			align-items: baseline;
+			align-items: center;
+			gap: 0.4rem;
+			flex: 1;
+			order: 1;
+		}
+		.proj-list .src-group {
+			order: 2;
+			flex-direction: row;
 			gap: 0.5rem;
-			grid-column: 1;
-			grid-row: 1;
+			align-items: center;
+		}
+		.proj-list .desc {
+			order: 3;
+			width: 100%;
+			font-size: 0.84rem;
+			color: var(--text-secondary);
+			line-height: 1.5;
 		}
 		.proj-list .type { font-size: 0.8rem; }
-		.proj-list .desc {
-			grid-column: 1;
-			grid-row: 2;
-			font-size: 0.9rem;
-			color: var(--text-secondary);
-		}
-		.proj-list .src {
-			grid-column: 2;
-			grid-row: 1 / 3;
-			align-self: center;
-		}
-		.proj-list .src svg { width: 22px; height: 22px; }
+		.proj-list .src svg { width: 16px; height: 16px; }
 	}
 
 	.writing-wrap {
