@@ -15,7 +15,7 @@ const { src, alt, caption, width = 640, class: className } = Astro.props;
 
 <figure class:list={[className]}>
 	<a href={src.src} class="lightbox-trigger" data-lightbox>
-		<Image src={src} alt={alt} width={width} />
+		<Image src={src} alt={alt} width={width} densities={[1, 2]} />
 	</a>
 	{caption && <figcaption>{caption}</figcaption>}
 </figure>
