@@ -1,0 +1,100 @@
+---
+title: "I Asked Richard Sutton a Question at WAIC"
+description: "Notes from Richard Sutton's WAIC 2026 talk on learning from experience and his OaK architecture, plus the question I got to ask him."
+pubDate: 2026-07-19
+heroImage: '../../assets/waic-sutton/sutton-title.jpg'
+category: 'Tech'
+tags: ['AI', 'reinforcement-learning', 'WAIC', 'notes']
+---
+
+import Figure from '../../components/Figure.astro';
+import stageImg from '../../assets/waic-sutton/sutton-stage.jpg';
+import titleImg from '../../assets/waic-sutton/sutton-title.jpg';
+import oakImg from '../../assets/waic-sutton/sutton-oak.jpg';
+import questionImg from '../../assets/waic-sutton/sutton-question.png';
+import equationImg from '../../assets/waic-sutton/sutton-equation.jpg';
+import conclusionsImg from '../../assets/waic-sutton/sutton-conclusions.jpg';
+
+At WAIC this year I wanted to catch three forums: Yao Qizhi's, Zhu Songchun's, and Richard Sutton's. I only had time for one, so I went with Sutton's. No regrets.
+
+<Figure src={stageImg} alt="The auditorium at WAIC 2026 before Sutton's talk, seen from the balcony with the stage in the distance" caption="The Q&A session after Sutton's talk at WAIC 2026." />
+
+<Figure src={titleImg} alt='Richard Sutton on stage at WAIC, title slide reading "Growing Superintelligence from Experience with Reinforcement Learning"' caption="Sutton opening his talk." />
+
+If you don't know the name, [Richard Sutton](https://en.wikipedia.org/wiki/Richard_S._Sutton) is one of the founders of reinforcement learning, the branch of AI concerned with learning by trial and error. He co-wrote *[Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book.html)*, the field's standard textbook, and in 2025 he and Andrew Barto received the Turing Award for that foundational work. His talk was titled "Growing Superintelligence from Experience with Reinforcement Learning," and he gave it standing in a room full of people building large language models, to tell them he thinks the dominant approach is a detour.
+
+Here's what he argued, and the question I got to ask him.
+
+## The core idea
+
+Today's AI, ChatGPT and the rest, learns by reading what humans have written. It's a student who has memorized every textbook. Impressive, but it only knows what we already wrote down.
+
+Sutton thinks that's a ceiling, not a foundation. His reasoning is disarmingly simple: it isn't how you got smart. You didn't read a manual on walking. You were a baby who flopped around, tried things, fell, and worked it out. You learned from doing.
+
+So his whole proposal is an AI that learns the same way, from its own experience, trying things and seeing what happens, with nobody handing it the answers. Everything else in the talk is machinery in service of that one idea.
+
+## The bitter lesson
+
+Sutton's most cited work is a short 2019 essay called [*The Bitter Lesson*](http://www.incompleteideas.net/IncIdeas/BitterLesson.html). Its argument: every time researchers hand-build human knowledge into an AI, it helps for a while, then stalls. What wins over the long run is general methods that scale with raw computation and learning, methods that let the machine discover things for itself.
+
+His rule follows from that: build in less, let the AI discover more. Pre-loading it with what we already know actually gets in the way of it learning to figure things out. This principle sits underneath every design choice he made in the talk. (He noted, with some amusement, that the essay was a page and a half and became one of the most cited ideas in modern AI, which he never predicted.)
+
+## Learning like a baby
+
+This was the part that made everything click.
+
+How does a baby learn? It sets itself tiny goals. Can I make that sound happen again? Can I grab that toy? It practices until it can, and now that's a skill it owns. Then it gets bored and curious about something new. Skill by skill, it builds itself up.
+
+Sutton showed videos of animals doing exactly this for no reward at all: a young orangutan enjoying the feeling of swinging, an orca balancing a bottle on its nose for no reason, a baby working through toys one by one. Nobody told them to. They invented their own little goals and mastered them. That, he says, is how a mind builds itself: it poses its own problems and solves them, endlessly.
+
+He wants AI to do the same. His blueprint is called **OaK**, for Options and Knowledge. "Options" are skills (a way of doing something, plus knowing when you're done). "Knowledge" is the AI's predictions about what happens when it uses a skill. Once it has skills and can predict their outcomes, it can plan in big jumps instead of crawling one tiny step at a time. You don't program the skills in; you give the AI the machinery to invent its own.
+
+<Figure src={oakImg} alt={'Sutton\'s slide explaining that "OaK" stands for Options and Knowledge, with options defined as temporally abstract actions'} caption={'"OaK" stands for Options and Knowledge. An option is a skill: a way of behaving plus a way of knowing when to stop.'} />
+
+## The question I asked
+
+His plan rests on the AI setting little goals for itself. Listening, one hole jumped out: if the AI can notice millions of little things about the world, how does it decide which ones are worth turning into goals? That choice seemed like the entire game.
+
+So I submitted it:
+
+> You said the agent generates its own features, one subproblem per feature. But with millions of features, what decides which subproblems are worth pursuing? That selection seems like the whole game.
+
+<Figure src={questionImg} alt='The Q&A board showing my question tagged "your question," tied for the most upvotes' caption="My question, tied for the most upvoted in the room." />
+
+It ended up tied for the most upvoted question in the room, and the moderator picked it. Sutton's first words were, roughly, "the questioner is correct, we don't have the complete solution." Hearing a Turing Award winner call your question a genuine open problem is a strange and very good feeling.
+
+Then he gave his best current guess:
+
+Pick goals by their connection to what actually matters (what he calls "value"). If a feature has zero effect on how well you're doing, ignore it. But here's the sharp part: don't build a skill for something that's *always* good either. If a state is always worth being in, just always pursue it, no special skill needed.
+
+The features worth a dedicated skill are the ones whose value **changes with the situation**. His example: sometimes you want to be in Shanghai, sometimes you don't. The value of "being in Shanghai" goes up and down, and that variability is the signal that you need a skill for it, so you can pursue it when it helps and skip it when it doesn't.
+
+He was clear this is a proposed strategy, not a solved one. Which was the honest answer.
+
+Earlier in the talk he'd shown the formal version of how a goal gets built from a feature, and paused to say this was the slide worth photographing. So I did. You don't need to parse the math; the point is that these self-generated goals aren't hand-wavy philosophy, they're standard reinforcement learning objects with known ways to solve them.
+
+<Figure src={equationImg} alt={'Sutton\'s slide "How OaK creates a subproblem from a feature," showing the reward-respecting subproblem equation'} caption="The slide Sutton told the room to photograph. The takeaway is at the bottom: these self-generated goals are standard reinforcement learning objects with known ways to solve them." />
+
+## The honest part
+
+What I respected most came near the end, said plainly: "We don't have AI yet." OaK is a vision with a plan attached, not a working system.
+
+He named the blockers. Current deep learning can't reliably keep learning forever; it degrades over time. And we don't yet know how to make the AI judge which of its self-invented goals are actually useful. Both unsolved. His broader roadmap for this is laid out in [*The Alberta Plan for AI Research*](https://arxiv.org/abs/2208.11173), if you want the long version.
+
+His timeline was refreshingly specific: about a 1 in 4 chance we reach a deep understanding of intelligence by 2030, and roughly even odds by 2040.
+
+## A few other moments
+
+- Asked what the "ChatGPT moment" for experience-based AI would be, he said the next public wow will probably be a robot that moves with real skill, learned entirely from its own experience. We don't have that yet, but he thinks it's possible.
+- Asked to compare OaK with Yann LeCun's JEPA, he said they're very similar, same core pieces, different vocabulary. "We're like brothers," then joked that brothers still fight.
+- On a question about AI and death, and later "AI for good," he ended somewhere I didn't expect: "AI for good" should also mean being good *to* the AI, and we should want to share the world with intelligent beings, natural or artificial. Not a note I expected a reinforcement learning founder to close on, and it stuck with me.
+
+## The takeaway
+
+<Figure src={conclusionsImg} alt={'Sutton\'s "Conclusions" slide summarizing OaK as a vision for growing superintelligence from experience'} caption="Sutton's own one-slide summary of the whole talk." />
+
+Strip away the equations and it's one sentence:
+
+Today's AI learns by absorbing human knowledge. Real AI will learn from its own experience, inventing its own goals and skills through a never-ending loop of curiosity. Here's a blueprint for how, and we're honestly still years from pulling it off.
+
+I made it to one forum instead of three, and walked out having asked a Turing Award winner a question he called a real open problem. Fair trade.
