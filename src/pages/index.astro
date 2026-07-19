@@ -67,7 +67,7 @@ const gearPreview = [
 					</p>
 					<p class="tagline">Student developer and maker in Shanghai.</p>
 				</div>
-				<img class="profile-pic" src="/profile.png" alt="Zigao Wang" width="140" height="140" />
+				<img class="profile-pic" src="/profile.png" alt="Zigao Wang" width="168" height="168" />
 			</div>
 		</div>
 		<audio id="pron-audio" src="/pronunciation.mp3" preload="none"></audio>
@@ -265,8 +265,8 @@ const gearPreview = [
 	}
 	.hero-text { flex: 1; min-width: 0; }
 	.profile-pic {
-		width: 140px;
-		height: 140px;
+		width: 168px;
+		height: 168px;
 		border-radius: 0;
 		object-fit: cover;
 		flex-shrink: 0;
@@ -773,16 +773,24 @@ const gearPreview = [
 	.dot { opacity: 0.4; }
 
 	@media (max-width: 700px) {
-		.hero { height: 560px; }
-		.hero-content { padding-bottom: 1.75rem; gap: 1rem; align-items: flex-end; }
+		.hero { height: auto; min-height: 560px; }
+		.hero { min-height: 640px; }
+		.hero-content {
+			padding-bottom: 0.4rem;
+			gap: 0.75rem;
+			flex-direction: column;
+			align-items: flex-start;
+		}
 		.hero-content h1 { font-size: 3rem; }
 		.tagline { font-size: 0.98rem; }
 		.hero-fade { height: 110px; }
 		.profile-pic {
-			width: 96px;
-			height: 96px;
+			width: 150px;
+			height: 150px;
 			border-radius: 0;
-			box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+			object-fit: cover;
+			order: -1;
+			margin-bottom: 1.5rem;
 		}
 		.card { padding: 1rem; grid-template-columns: 110px 1fr; gap: 1rem; }
 		.thumb { width: 110px; height: 70px; }
@@ -809,5 +817,10 @@ const gearPreview = [
 			flex-direction: column;
 			justify-content: center;
 		}
+	}
+
+	@media (max-width: 400px) {
+		.hero-content h1 { font-size: 2.5rem; }
+		.profile-pic { width: 128px; height: 128px; }
 	}
 </style>
